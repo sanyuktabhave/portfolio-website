@@ -1,0 +1,23 @@
+<svg width="66" height="64" viewBox="0 0 66 64" fill="none" id="svg-1659469306_1042">
+<g clip-path="url(#svg-1659469306_1042_clip0_325_36601)">
+<rect width="64" height="66" transform="translate(66 1.93921e-06) rotate(90)" fill="white"></rect>
+<g clip-path="url(#svg-1659469306_1042_clip1_325_36601)">
+<rect width="2" height="21" transform="translate(66 31) rotate(90)" fill="black"></rect>
+</g>
+<path d="M28 32C28 34.7614 30.2386 37 33 37C35.7614 37 38 34.7614 38 32C38 29.2386 35.7614 27 33 27C30.2386 27 28 29.2386 28 32Z" fill="black"></path>
+<g clip-path="url(#svg-1659469306_1042_clip2_325_36601)">
+<rect width="2" height="21" transform="translate(21 31) rotate(90)" fill="white"></rect>
+</g>
+</g>
+<defs>
+<clipPath id="svg-1659469306_1042_clip0_325_36601">
+<rect width="64" height="66" fill="white" transform="translate(66 1.93921e-06) rotate(90)"></rect>
+</clipPath>
+<clipPath id="svg-1659469306_1042_clip1_325_36601">
+<rect width="2" height="21" fill="white" transform="translate(66 31) rotate(90)"></rect>
+</clipPath>
+<clipPath id="svg-1659469306_1042_clip2_325_36601">
+<rect width="2" height="21" fill="white" transform="translate(21 31) rotate(90)"></rect>
+</clipPath>
+</defs>
+</svg>

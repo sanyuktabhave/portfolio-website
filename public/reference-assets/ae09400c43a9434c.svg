@@ -1,0 +1,23 @@
+<svg width="66" height="64" viewBox="0 0 66 64" fill="none" id="svg-450428404_1187">
+<g clip-path="url(#svg-450428404_1187_clip0_325_36603)">
+<rect width="64" height="66" transform="translate(66 2.88495e-06) rotate(90)" fill="white"></rect>
+<g clip-path="url(#svg-450428404_1187_clip1_325_36603)">
+<rect width="2" height="24" transform="translate(66 31) rotate(90)" fill="#F3F3F3"></rect>
+</g>
+<path d="M33.0004 24.666C28.9337 24.666 25.667 27.9327 25.667 31.9994C25.667 36.066 28.9337 39.3327 33.0004 39.3327C37.067 39.3327 40.3337 36.066 40.3337 31.9994C40.3337 27.9327 37.067 24.666 33.0004 24.666ZM37.0004 33.3327H31.667V26.666H33.667V31.3327H37.0004V33.3327Z" fill="#DE1135"></path>
+<g clip-path="url(#svg-450428404_1187_clip2_325_36603)">
+<rect width="2" height="24" transform="translate(24 31) rotate(90)" fill="black"></rect>
+</g>
+</g>
+<defs>
+<clipPath id="svg-450428404_1187_clip0_325_36603">
+<rect width="64" height="66" fill="white" transform="translate(66 2.88495e-06) rotate(90)"></rect>
+</clipPath>
+<clipPath id="svg-450428404_1187_clip1_325_36603">
+<rect width="2" height="24" fill="white" transform="translate(66 31) rotate(90)"></rect>
+</clipPath>
+<clipPath id="svg-450428404_1187_clip2_325_36603">
+<rect width="2" height="24" fill="white" transform="translate(24 31) rotate(90)"></rect>
+</clipPath>
+</defs>
+</svg>

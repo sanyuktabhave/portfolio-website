@@ -1,0 +1,23 @@
+<svg width="99" height="64" viewBox="0 0 99 64" fill="none" id="svg1637749081_1078">
+<g clip-path="url(#svg1637749081_1078_clip0_325_36623)">
+<rect width="64" height="99" transform="translate(99 2.88677e-06) rotate(90)" fill="white"></rect>
+<g clip-path="url(#svg1637749081_1078_clip1_325_36623)">
+<rect width="2" height="44.5" transform="translate(99 31) rotate(90)" fill="#F3F3F3"></rect>
+</g>
+<path d="M44.5 32C44.5 34.7614 46.7386 37 49.5 37C52.2614 37 54.5 34.7614 54.5 32C54.5 29.2386 52.2614 27 49.5 27C46.7386 27 44.5 29.2386 44.5 32Z" fill="#DDDDDD"></path>
+<g clip-path="url(#svg1637749081_1078_clip2_325_36623)">
+<rect width="2" height="44.5" transform="translate(44.5 31) rotate(90)" fill="#F3F3F3"></rect>
+</g>
+</g>
+<defs>
+<clipPath id="svg1637749081_1078_clip0_325_36623">
+<rect width="64" height="99" fill="white" transform="translate(99 2.88677e-06) rotate(90)"></rect>
+</clipPath>
+<clipPath id="svg1637749081_1078_clip1_325_36623">
+<rect width="2" height="44.5" fill="white" transform="translate(99 31) rotate(90)"></rect>
+</clipPath>
+<clipPath id="svg1637749081_1078_clip2_325_36623">
+<rect width="2" height="44.5" fill="white" transform="translate(44.5 31) rotate(90)"></rect>
+</clipPath>
+</defs>
+</svg>
