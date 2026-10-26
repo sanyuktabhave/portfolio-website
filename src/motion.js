@@ -1,4 +1,3 @@
-import { mountPixelTrail } from './pixel-trail.js'
 // Progressive enhancement: content stays visible if motion is unavailable.
 export function setupMotion() {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)')
@@ -44,7 +43,7 @@ export function setupMotion() {
     updateProgress()
 
     let cursorCleanup = () => {}
-    if (fine.matches) cursorCleanup = mountPixelTrail()
+
 
     cleanup = () => {
       observer.disconnect(); animations.forEach(a => a.cancel()); cursorCleanup()

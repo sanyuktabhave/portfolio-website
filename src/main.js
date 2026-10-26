@@ -1,3 +1,6 @@
+import { setupGlowCursor } from './glow-cursor.js'
+import { setupLiquidButtons } from './liquid-buttons.js'
+import { setupHomeInteractions } from './home-interactions.js'
 import { setupImpactCounters } from './impact-counters.js'
 import { setupBlinkitPage } from './blinkit-page.js'
 import blinkitCSS from './blinkit-editorial.css?raw'
@@ -74,8 +77,8 @@ if (!page) {
       a.addEventListener('click', e => { if(path === '/') {e.preventDefault();scrollToSection('Section - Projects')} })
     }
     if (label === 'Hire Me!' || label === 'Contact Me') {
-      a.href = 'mailto:sanyuktawork39@gmail.com'
-      a.addEventListener('click', e => { if(path === '/') {e.preventDefault();[...document.querySelectorAll('footer')].find(visible)?.scrollIntoView({behavior:'smooth'})} })
+      a.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=sanyuktawork39%40gmail.com'
+      a.target = '_blank'
     }
     if (label === 'Linkedin' || a.href === 'https://linkedin.com/') a.href = 'https://www.linkedin.com/in/sanyuktabhave/'
     if (label === 'Reviews') {
@@ -91,7 +94,7 @@ if (!page) {
     if (!toggle) continue
     toggle.setAttribute('role','button');toggle.tabIndex=0;toggle.setAttribute('aria-label','Open navigation');toggle.setAttribute('aria-expanded','false')
     const menu = document.createElement('nav');menu.className='mobile-menu';menu.hidden=true
-    menu.innerHTML='<a href="/#portfolio">Portfolio</a><a href="https://drive.google.com/file/d/1idadaWzmwQDFvkmgy5-AE-Zk19soHNHG/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a><a href="https://www.linkedin.com/in/sanyuktabhave/">LinkedIn</a><a href="mailto:sanyuktawork39@gmail.com">Hire Me!</a>'
+    menu.innerHTML='<a href="/#portfolio">Portfolio</a><a href="https://drive.google.com/file/d/1idadaWzmwQDFvkmgy5-AE-Zk19soHNHG/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a><a href="https://www.linkedin.com/in/sanyuktabhave/">LinkedIn</a><a target="_blank" rel="noopener noreferrer" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=sanyuktawork39%40gmail.com">Hire Me!</a>'
     header.append(menu)
     const flip=()=>{menu.hidden=!menu.hidden;toggle.setAttribute('aria-expanded',String(!menu.hidden));toggle.setAttribute('aria-label',menu.hidden?'Open navigation':'Close navigation')}
     toggle.addEventListener('click',flip)
@@ -104,6 +107,10 @@ if (!page) {
 }
 
 setupHomeDetails()
+setupHomeInteractions()
 setupBlinkitPage()
 setupImpactCounters()
 if (path !== '/blinkit-onboarding') setupMotion()
+
+setupLiquidButtons()
+setupGlowCursor()

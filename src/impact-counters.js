@@ -8,7 +8,7 @@ export function setupImpactCounters() {
     const label = raw + '%'
     const value = Number(raw)
     const decimals = raw.includes('.') ? raw.split('.')[1].length : 0
-    el.setAttribute('aria-label', raw + ' percent relative increase')
+    el.setAttribute('aria-label', raw + ' percent reported improvement')
     const visual = document.createElement('span')
     visual.setAttribute('aria-hidden', 'true'); visual.textContent = raw
     const suffix = document.createElement('small'); suffix.textContent = '%'; suffix.setAttribute('aria-hidden','true')
