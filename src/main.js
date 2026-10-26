@@ -72,6 +72,10 @@ if (!page) {
   const scrollToSection = name => findSection(name)?.scrollIntoView({behavior: 'smooth', block: 'start'})
   for (const a of document.querySelectorAll('a')) {
     const label = a.textContent.trim()
+    if (path === '/' && new URL(a.href, location.href).pathname.replace(/\/$/, '') === '/creator-ai') {
+      a.href = 'https://www.figma.com/deck/JcByCBJO6rSmfZJIFuzVrU/Creator-AI?node-id=4-2624&viewport=-136%2C-13%2C0.63&t=SNKZZ9O51dKOTBLd-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1'
+      a.target = '_blank'
+    }
     if (label === 'Portfolio' || label === 'Porfolio' || label === 'See my Portfolio') {
       a.href = '/#portfolio'
       a.addEventListener('click', e => { if(path === '/') {e.preventDefault();scrollToSection('Section - Projects')} })

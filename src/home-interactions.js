@@ -20,6 +20,47 @@ export function setupHomeInteractions() {
       const span=document.createElement('span'); span.textContent=word; span.setAttribute('aria-hidden','true'); span.style.setProperty('--word',i); h.append(span,document.createTextNode(' '))
     }); observer.observe(h)
   })
+  // Restore the interactive Framer process variants in every responsive layout.
+  const processSteps = [
+    ['Exploration and confusion', 'I start with curiosity — diving into user needs, context, and data like solving a puzzle. Which also includes lot of calls with product managers and engineers'],
+    ['Framing the context', 'I turn insights into clear problem statements, aligned with business and tech goals, which also includes lots of fight and disagreements but most importantly putting all the stakeholders on the same page'],
+    ['Create', 'I experiment through sketches, prototypes, and feedback loops — keeping it iterative.'],
+    ['Launch & High Fives', 'Everything goes live, invloves lots of testing and the anxiety to see the product developed']
+  ]
+  document.querySelectorAll('[data-framer-name^="Step 1 -"]').forEach((card, instance) => {
+    const copy = card.querySelector('[data-framer-name="Title and Text"]')
+    const heading = copy?.querySelector('h3'), body = copy?.querySelector('p')
+    const image = card.querySelector('img[alt="Illustration "]')
+    if (!heading || !body || !image) return
+    const initialImage = image.getAttribute('src')
+    const oldTabs = copy.previousElementSibling
+    const tabs = document.createElement('div')
+    tabs.className = 'process-tabs'; tabs.setAttribute('role', 'tablist'); tabs.setAttribute('aria-label', 'My design process')
+    copy.id = `process-panel-${instance}`; copy.setAttribute('role', 'tabpanel')
+    let selected = 0
+    const buttons = processSteps.map(([title], i) => {
+      const button = document.createElement('button')
+      button.type = 'button'; button.className = 'process-tab'; button.textContent = i + 1
+      button.id = `process-tab-${instance}-${i}`; button.setAttribute('role', 'tab')
+      button.setAttribute('aria-label', `${i + 1}: ${title}`); button.setAttribute('aria-controls', copy.id)
+      button.addEventListener('click', () => select(i))
+      tabs.append(button); return button
+    })
+    function select(index) {
+      selected = index
+      buttons.forEach((button, i) => { button.setAttribute('aria-selected', String(i === index)); button.tabIndex = i === index ? 0 : -1 })
+      copy.setAttribute('aria-labelledby', buttons[index].id)
+      heading.textContent = processSteps[index][0]; body.textContent = processSteps[index][1]
+      image.removeAttribute('srcset'); image.src = index ? `/home-assets/process-${index + 1}.png` : initialImage
+      image.alt = `${processSteps[index][0]} — original process illustration`
+    }
+    tabs.addEventListener('keydown', e => {
+      const index = e.key === 'ArrowRight' ? (selected + 1) % 4 : e.key === 'ArrowLeft' ? (selected + 3) % 4 : e.key === 'Home' ? 0 : e.key === 'End' ? 3 : null
+      if (index === null) return
+      e.preventDefault(); select(index); buttons[index].focus()
+    })
+    oldTabs.replaceWith(tabs); select(0)
+  })
   const companies = [
     ['Blinkit','blinkit.svg','Currently the sole designer on the delivery partner app — onboarding, the new rider experience, and a reimagined referral program.'],
     ['Uber','uber.svg','Started as an intern on the driver app, then converted to contractor for the supplier portal — trip management for B2B riders taking Uber’s office shuttles. Best team I’ve worked with. 💛'],

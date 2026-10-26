@@ -4,7 +4,7 @@ import './liquid-buttons.css'
 export function setupLiquidButtons() {
   const cta = /^(Hire Me!?|Contact Me|See my Portfolio|View Case Study|See Project|Back to projects.*|Back to portfolio.*)$/
   for (const button of [...document.querySelectorAll('button,a,[role="button"]')]) {
-    if (!button.isConnected || button.matches('.memory-card,.portrait-switch,.company-logo-button,[data-enlarge]') || button.closest('svg')) continue
+    if (!button.isConnected || button.matches('.memory-card,.portrait-switch,.company-logo-button,.process-tab,[data-enlarge]') || button.closest('svg')) continue
     if (button.parentElement.closest('.liquid-button')) continue
     const label = button.textContent.trim()
     if (button.tagName === 'A' && !cta.test(label) && !button.classList.contains('project-case-button')) continue
