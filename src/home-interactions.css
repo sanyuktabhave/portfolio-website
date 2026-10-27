@@ -5,7 +5,7 @@
 @media(prefers-reduced-motion:no-preference){.playful-heading.heading-arrived>span{animation:word-pop .8s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(var(--word)*85ms)}.playful-heading:hover>span{animation:word-wiggle .65s ease both;animation-delay:calc(var(--word)*65ms)}}
 @keyframes word-pop{from{opacity:.3;translate:0 25px;rotate:-3deg}to{opacity:1;translate:0 0;rotate:0deg}}
 @keyframes word-wiggle{40%{translate:0 -7px;rotate:-2deg}75%{rotate:1deg}}
-.company-strip{width:100%;padding:30px 20px 38px;border-top:1px solid #34001925;border-bottom:1px solid #34001925;margin:0 0 30px;color:#340019;box-sizing:border-box;text-align:center;font-family:Outfit,sans-serif}
+.company-strip{width:100%;padding:30px 20px 38px;border:0;margin:0 0 30px;color:#340019;box-sizing:border-box;text-align:center;font-family:Outfit,sans-serif}
 .company-strip p{font-size:15px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 28px}.company-strip>div{display:flex;align-items:center;justify-content:center;gap:clamp(24px,6vw,90px)}.company-strip img{width:140px;height:56px;object-fit:contain}.company-strip img:first-child{height:72px;width:110px}.company-strip span{color:#aa6680;font-size:24px}
 .portrait-switch{cursor:pointer;overflow:hidden}.portrait-switch img{transition:opacity .45s ease!important}.portrait-switch .illustrated-portrait{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none}.portrait-switch:hover .illustrated-portrait,.portrait-switch:focus-visible .illustrated-portrait,.portrait-switch.show-illustration .illustrated-portrait{opacity:1}
 .interactive-home .experience-timeline{display:flex!important;flex-direction:column!important;gap:0!important;width:100%!important;max-width:1100px!important;padding-left:38px!important;border-left:2px solid #34001935;overflow:visible!important;margin-left:14px}
@@ -53,3 +53,18 @@
 @media(max-width:809px) { .process-tabs { justify-content:center; } .process-tab { width:48px; height:60px; font-size:30px; } }
 .process-tab { transition:background-color .2s,color .2s; }
 .process-tab:hover:not([aria-selected="true"]) { background:#f2bdd6; }
+
+.company-strip > p { text-transform:none; font-size:22px; letter-spacing:.02em; margin-bottom:32px; }
+.company-strip .company-logo-button img { width:190px; height:80px; }
+.company-strip .company-item:first-child img { width:140px; height:100px; }
+@media(max-width:809px) {
+ .company-strip > p { font-size:18px; }
+ .company-strip > .company-logos { gap:10px; }
+ .company-strip .company-logo-button img { width:96px; height:48px; }
+ .company-strip .company-item:first-child img { width:76px; height:66px; }
+}
+
+/* Keep the company strip close to the scalloped hero divider. */
+.interactive-home section.has-company-strip { padding-top:40px!important; justify-content:flex-start!important; }
+.interactive-home .company-strip { padding-top:12px; }
+@media(max-width:809px) { .interactive-home section.has-company-strip { padding-top:24px!important; } }

@@ -69,7 +69,7 @@ export function setupHomeInteractions() {
   document.querySelectorAll('section').forEach((s,sectionIndex)=>{
     if(![...s.querySelectorAll('.playful-heading')].some(h=>h.getAttribute('aria-label')==='Look what I made!'))return
     s.classList.add('has-company-strip')
-    const strip=document.createElement('div');strip.className='company-strip';strip.innerHTML='<p>A few places I’ve designed with</p><div class="company-logos"></div>'
+    const strip=document.createElement('div');strip.className='company-strip';strip.innerHTML='<p>Places I Have Worked In</p><div class="company-logos"></div>'
     const row=strip.querySelector('.company-logos')
     companies.forEach(([name,asset,copy],i)=>{
       if(i){const star=document.createElement('span');star.className='company-divider';star.textContent='✦';star.setAttribute('aria-hidden','true');row.append(star)}
@@ -149,4 +149,21 @@ export function setupHomeInteractions() {
     const buttons=carousel.querySelectorAll('button');buttons[0].onclick=()=>change(-1);buttons[1].onclick=()=>change(1);carousel.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();change(e.key==='ArrowRight'?1:-1)}})
     let touchX=null;carousel.addEventListener('touchstart',e=>touchX=e.touches[0].clientX,{passive:true});carousel.addEventListener('touchend',e=>{if(touchX!==null&&Math.abs(e.changedTouches[0].clientX-touchX)>50)change(e.changedTouches[0].clientX<touchX?1:-1);touchX=null},{passive:true});s.append(carousel)
   })
+  // Move the actual sections so reading order and keyboard order match the layout.
+  const achievements = sections('Section - Testimonial')
+  const experience = sections('My Experience Section')
+  const about = sections('About Me Section')
+  const process = sections('Section - Process')
+  sections('Featured Projects Section').forEach((projects, index) => {
+    // Framer's phone layout also assigns CSS order to the project blocks.
+    for (const sibling of projects.parentElement.children) sibling.style.setProperty('order', 'initial', 'important')
+    let anchor = projects
+    for (const section of [achievements[index], experience[index], about[index], process[index]]) {
+      if (!section) continue
+      anchor.after(section)
+      section.style.setProperty('order', 'initial', 'important')
+      anchor = section
+    }
+  })
+
 }
