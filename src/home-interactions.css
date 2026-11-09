@@ -104,14 +104,12 @@
 
 /* ---------- Bring the work into view sooner ---------- */
 .project-grid-with-blinkit { scroll-margin-top: 110px; }
-.interactive-home .playful-heading { font-size: 88px !important; line-height: 1.05 !important; }
 .interactive-home .company-strip { padding: 4px 20px 8px; margin-bottom: 8px; }
 .interactive-home .company-strip > p { font-size: 15px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
 .interactive-home .company-strip .company-logo-button img { width: 130px; height: 52px; }
 .interactive-home .company-strip .company-item:first-child img { width: 96px; height: 64px; }
 @media (max-width: 809px) {
   .project-grid-with-blinkit { scroll-margin-top: 90px; }
-  .interactive-home .playful-heading { font-size: 50px !important; }
   .interactive-home .company-strip > p { font-size: 12px; margin-bottom: 4px; }
   .interactive-home .company-strip .company-logo-button img { width: 80px; height: 36px; }
   .interactive-home .company-strip .company-item:first-child img { width: 60px; height: 46px; }
@@ -136,7 +134,7 @@
 /* Section headings: tag sticker sits on the heading's corner instead of covering words. */
 .interactive-home [data-framer-name="Heading and Label"] { position: relative !important; width: fit-content !important; max-width: 100% !important; height: auto !important; margin-inline: auto; }
 .interactive-home [data-framer-name="Heading and Label"] > .ssr-variant > [class*="-container"],
-.interactive-home [data-framer-name="Heading and Label"] > [class*="-container"] { position: absolute !important; left: auto !important; right: -80px !important; top: -50px !important; bottom: auto !important; transform: none !important; scale: .85; rotate: 10deg; }
+.interactive-home [data-framer-name="Heading and Label"] > [class*="-container"] { position: absolute !important; left: auto !important; right: -10px !important; top: -56px !important; bottom: auto !important; transform: none !important; scale: .85; rotate: 10deg; }
 .interactive-home section.has-company-strip { gap: 40px !important; padding-bottom: 96px !important; }
 @media (max-width: 809.98px) {
   .interactive-home [data-framer-name="Heading and Label"] { position: relative !important; gap: 0 !important; }
