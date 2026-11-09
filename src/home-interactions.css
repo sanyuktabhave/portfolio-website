@@ -90,8 +90,6 @@
 }
 
 /* ---------- Hero actions ---------- */
-.hero-secondary-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
-.hero-secondary-actions .unified-cta.unified-cta { height: 48px !important; min-height: 48px !important; padding: 11px 20px !important; font-size: 18px !important; box-shadow: 0 4px 0 #340019 !important; }
 .copy-email { border: 0; background: none; padding: 8px 4px; font: 600 16px/1.2 Outfit, sans-serif; color: #340019; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #34001966; cursor: pointer; border-radius: 6px; }
 .copy-email:hover { text-decoration-color: #340019; }
 .copy-email.is-copied { color: #1f6b3a; text-decoration: none; }
@@ -118,14 +116,11 @@
   .interactive-home .company-strip .company-logo-button img { width: 80px; height: 36px; }
   .interactive-home .company-strip .company-item:first-child img { width: 60px; height: 46px; }
   .hero-action-row { justify-content: center; }
-  .hero-secondary-actions { justify-content: center; }
-  .hero-secondary-actions .unified-cta.unified-cta { height: 44px !important; min-height: 44px !important; font-size: 16px !important; padding: 10px 16px !important; }
 }
 /* Hero: shorter section and a smaller portrait so projects appear sooner. */
 .interactive-home section.compact-hero { padding-top: 132px !important; padding-bottom: 64px !important; }
 .compact-hero [data-framer-name="Image Box"] { --portrait-scale: .78; scale: var(--portrait-scale); margin: -55px -61px !important; }
 .compact-hero .hero-action-row { flex-wrap: wrap; row-gap: 14px !important; }
-.compact-hero .hero-secondary-actions { flex-basis: 100%; }
 @media (min-width: 810px) and (max-width: 1229.98px) {
   .interactive-home section.compact-hero { padding-top: 120px !important; padding-bottom: 56px !important; }
   .compact-hero [data-framer-name="Image Box"] { --portrait-scale: .7; }

@@ -1,5 +1,5 @@
 import './home-interactions.css'
-import { EMAIL, copyEmailButton, scrollToWork } from './contact.js'
+import { EMAIL, scrollToWork } from './contact.js'
 
 export function setupHomeInteractions() {
   if ((location.pathname.replace(/\/$/, '') || '/') !== '/') return
@@ -111,9 +111,7 @@ export function setupHomeInteractions() {
         const link=(label,href,extra={})=>{const a=document.createElement('a');a.textContent=label;a.href=href;Object.assign(a.dataset,extra);return a}
         const work=link('View selected work','/#portfolio',{cta:'primary'})
         work.addEventListener('click',e=>{e.preventDefault();scrollToWork()})
-        const secondary=document.createElement('div');secondary.className='hero-secondary-actions'
-        secondary.append(link('Résumé','/resume.html'),link('Contact',`mailto:${EMAIL}`),copyEmailButton())
-        row.append(work,secondary);common.replaceWith(row)
+        row.append(work,link('Contact',`mailto:${EMAIL}`));common.replaceWith(row)
       }
     }
     const original=s.querySelector('img');if(!original)return
