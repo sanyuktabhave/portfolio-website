@@ -17,6 +17,8 @@ import tripHTML from './reference/tm-rendered.html?raw'
 import tripCSS from './reference/tm.css?raw'
 import tripBreakpoints from './reference/tm.json'
 import './site.css'
+import { MAILTO, EMAIL, copyEmailButton, scrollToWork } from './contact.js'
+import { improveLabels } from './labels.js'
 
 // Published portfolio layouts are local, editable HTML/CSS. No hosted Framer
 // runtime, telemetry, account, or iframe is required to render the portfolio.
@@ -38,7 +40,7 @@ if (!page) {
   document.head.append(style)
   document.getElementById('app').innerHTML = page.html
   if (path === '/') {
-    for (const section of document.querySelectorAll('section[data-framer-name="Section - Projects"]')) {
+    for (const section of document.querySelectorAll('section[data-framer-name="Section - Projects"],section[data-framer-name="prot"]')) {
       if (!section.textContent.includes('View Case Study')) continue
       section.classList.add('has-blinkit-project')
       const project = document.createElement('article')
@@ -69,7 +71,21 @@ if (!page) {
   // Correct placeholder navigation while preserving the published visual design.
   const visible = el => el && el.getClientRects().length && getComputedStyle(el).display !== 'none'
   const findSection = name => [...document.querySelectorAll('[data-framer-name]')].find(el => el.dataset.framerName === name && visible(el))
-  const scrollToSection = name => findSection(name)?.scrollIntoView({behavior: 'smooth', block: 'start'})
+  const scrollToSection = name => name === 'Section - Projects' ? scrollToWork() : findSection(name)?.scrollIntoView({behavior: 'smooth', block: 'start'})
+  // Secondary projects: real destinations, or no button until one exists.
+  const projectLinks = [
+    [/Character design/i, 'https://www.behance.net/gallery/187715663/Summer-Internship23'],
+    [/HDFC/i, null],
+    [/Hyperbots/i, null],
+  ]
+  for (const a of [...document.querySelectorAll('a')].filter(a => a.textContent.trim() === 'See Project')) {
+    let card = a
+    while (card.parentElement && [...card.parentElement.querySelectorAll('a')].filter(x => x.textContent.trim() === 'See Project').length === 1) card = card.parentElement
+    const match = projectLinks.find(([title]) => title.test(card.textContent))
+    if (!match) continue
+    if (match[1]) { a.href = match[1]; a.target = '_blank' }
+    else (a.closest('[class*="-container"]') || a).remove()
+  }
   for (const a of document.querySelectorAll('a')) {
     const label = a.textContent.trim()
     if (path === '/' && new URL(a.href, location.href).pathname.replace(/\/$/, '') === '/creator-ai') {
@@ -81,8 +97,8 @@ if (!page) {
       a.addEventListener('click', e => { if(path === '/') {e.preventDefault();scrollToSection('Section - Projects')} })
     }
     if (label === 'Hire Me!' || label === 'Contact Me') {
-      a.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=sanyuktawork39%40gmail.com'
-      a.target = '_blank'
+      a.href = MAILTO
+      a.removeAttribute('target')
     }
     if (label === 'Resume') { a.href = '/resume.html'; a.removeAttribute('target') }
     if (label === 'Linkedin' || a.href === 'https://linkedin.com/') a.href = 'https://www.linkedin.com/in/sanyuktabhave/'
@@ -99,7 +115,8 @@ if (!page) {
     if (!toggle) continue
     toggle.setAttribute('role','button');toggle.tabIndex=0;toggle.setAttribute('aria-label','Open navigation');toggle.setAttribute('aria-expanded','false')
     const menu = document.createElement('nav');menu.className='mobile-menu';menu.hidden=true
-    menu.innerHTML='<a href="/#portfolio">Portfolio</a><a href="/resume.html">Resume</a><a href="https://www.linkedin.com/in/sanyuktabhave/">LinkedIn</a><a target="_blank" rel="noopener noreferrer" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=sanyuktawork39%40gmail.com">Hire Me!</a>'
+    menu.innerHTML='<a href="/#portfolio">Portfolio</a><a href="/resume.html">Resume</a><a href="https://www.linkedin.com/in/sanyuktabhave/">LinkedIn</a><a href="${MAILTO}">Email me</a>'
+    menu.append(copyEmailButton())
     header.append(menu)
     const flip=()=>{menu.hidden=!menu.hidden;toggle.setAttribute('aria-expanded',String(!menu.hidden));toggle.setAttribute('aria-label',menu.hidden?'Open navigation':'Close navigation')}
     toggle.addEventListener('click',flip)
@@ -107,6 +124,15 @@ if (!page) {
     menu.addEventListener('click',e=>{if(e.target.closest('a')){menu.hidden=true;toggle.setAttribute('aria-expanded','false');if(e.target.getAttribute('href')==='/#portfolio'){e.preventDefault();scrollToSection('Section - Projects')}}})
     document.addEventListener('keydown',e=>{if(e.key==='Escape'){menu.hidden=true;toggle.setAttribute('aria-expanded','false')}})
   }
+  // Footer email: a real link plus a copy option for any mail client.
+  for (const p of document.querySelectorAll('p')) {
+    if (p.textContent.trim() !== EMAIL || p.querySelector('a')) continue
+    const link = Object.assign(document.createElement('a'), { href: MAILTO, textContent: EMAIL, className: 'footer-email' })
+    p.replaceChildren(link)
+    p.after(copyEmailButton())
+    p.parentElement.classList.add('footer-email-row')
+  }
+  improveLabels()
   if (location.hash === '#portfolio') requestAnimationFrame(()=>scrollToSection('Section - Projects'))
   if (location.hash === '#reviews') requestAnimationFrame(()=>scrollToSection('Section - Testimonial'))
 }

@@ -1,4 +1,5 @@
 import './home-interactions.css'
+import { EMAIL, copyEmailButton, scrollToWork } from './contact.js'
 
 export function setupHomeInteractions() {
   if ((location.pathname.replace(/\/$/, '') || '/') !== '/') return
@@ -8,13 +9,15 @@ export function setupHomeInteractions() {
   })
   const sections = name => [...document.querySelectorAll(`section[data-framer-name="${name}"]`)]
   const reduced = matchMedia('(prefers-reduced-motion: reduce)')
-  const titles = ['Look what I made!', 'My not-so secret sauce', 'Things made me blush']
+  // [published heading, displayed heading]
+  const titles = [['Look what I made!', 'Look what I made!'], ['My not-so secret sauce', 'My not-so secret sauce'], ['Things made me blush', 'What teammates say']]
   const observer = new IntersectionObserver(entries => entries.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('heading-arrived'); observer.unobserve(e.target) }
   }), {threshold: .5})
   document.querySelectorAll('h2').forEach(h => {
-    const title = titles.find(t => t.replace(/\s/g,'') === h.textContent.replace(/\s/g,''))
-    if (!title) return
+    const match = titles.find(([t]) => t.replace(/\s/g,'') === h.textContent.replace(/\s/g,''))
+    if (!match) return
+    const title = match[1]
     h.textContent = ''; h.classList.add('playful-heading'); h.setAttribute('aria-label',title)
     title.split(' ').forEach((word,i) => {
       const span=document.createElement('span'); span.textContent=word; span.setAttribute('aria-hidden','true'); span.style.setProperty('--word',i); h.append(span,document.createTextNode(' '))
@@ -61,6 +64,15 @@ export function setupHomeInteractions() {
     })
     oldTabs.replaceWith(tabs); select(0)
   })
+  // Keep in sync with public/resume.html.
+  const experienceEntries = [
+    ['Apr 2026 – Present','Product Designer 1 at Blinkit','Sole designer on the delivery partner app. I redesigned onboarding (completion rose from 23.5% to 29.45%), introduced Super Fleet, which improved driver retention by 20%, and revamped the rider referral program.',true],
+    ['2025 – 2027','Master’s in XR Design, IIT Jodhpur','Specialising in interaction design for XR, alongside my role at Blinkit.'],
+    ['Apr 2024 – Jun 2025','Product Design Contractor at Uber','Started as an intern on the driver app, then converted to contractor. I designed the EST fleet management dashboard, shipped the revamped supplier portal, and solved waypoint navigation for high-capacity-vehicle drivers.'],
+    ['Dec 2023 – Apr 2024','Product Design Intern at Hyperbots','My graduation project: I designed conversational flows for their AI chatbot and led the branding and website design.'],
+    ['May – Aug 2023','Product Design Intern at HDFC Bank','Worked on PayZapp–Giftr to integrate coupons, redesigned the cart screens and ran usability tests. Also designed loan-calculator widgets and researched merchant needs.'],
+    ['2020 – 2024','B.Des in Interaction Design, JK Lakshmipat University','If I’m even 1% of a good designer, it’s thanks to the mentors and peers I found here — Dr Devanuj, who taught us interaction design; Chandni Naidu, who inspired me to make something of my own; and Prakriti Sharma and Himangi Puri, with whom I made some of my favourite projects.'],
+  ]
   const companies = [
     ['Blinkit','blinkit.svg','Currently the sole designer on the delivery partner app — onboarding, the new rider experience, and a reimagined referral program.'],
     ['Uber','uber.svg','Started as an intern on the driver app, then converted to contractor for the supplier portal — trip management for B2B riders taking Uber’s office shuttles. Best team I’ve worked with. 💛'],
@@ -89,16 +101,24 @@ export function setupHomeInteractions() {
     });s.prepend(strip)
   })
   sections('Hero Section').forEach(s=>{
+    s.classList.add('compact-hero')
     const actions=[...s.querySelectorAll('a')].filter(a=>/^(Hire Me!|See my Portfolio)$/.test(a.textContent.trim()))
     if(actions.length===2){
       let common=actions[0].parentElement
       while(common && !common.contains(actions[1]))common=common.parentElement
-      if(common && common!==s){const row=document.createElement('div');row.className='hero-action-row';row.append(...actions);common.replaceWith(row)}
+      if(common && common!==s){
+        const row=document.createElement('div');row.className='hero-action-row'
+        const link=(label,href,extra={})=>{const a=document.createElement('a');a.textContent=label;a.href=href;Object.assign(a.dataset,extra);return a}
+        const work=link('View selected work','/#portfolio',{cta:'primary'})
+        work.addEventListener('click',e=>{e.preventDefault();scrollToWork()})
+        const secondary=document.createElement('div');secondary.className='hero-secondary-actions'
+        secondary.append(link('Résumé','/resume.html'),link('Contact',`mailto:${EMAIL}`),copyEmailButton())
+        row.append(work,secondary);common.replaceWith(row)
+      }
     }
     const original=s.querySelector('img');if(!original)return
-    const frame=original.parentElement;frame.classList.add('portrait-switch');frame.tabIndex=0;frame.setAttribute('role','button');frame.setAttribute('aria-label','Show illustrated portrait');frame.setAttribute('aria-pressed','false')
-    const illustration=document.createElement('img');illustration.src='/home-assets/portrait-illustrated.png';illustration.alt='Illustrated portrait of Sanyukta';illustration.className='illustrated-portrait';frame.append(illustration)
-    const toggle=()=>{const on=frame.classList.toggle('show-illustration');frame.setAttribute('aria-pressed',String(on))};frame.addEventListener('click',toggle);frame.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}})
+    original.alt='Portrait of Sanyukta Bhave'
+    original.parentElement.classList.add('portrait-frame')
   })
   sections('My Experience Section').forEach(s=>{
     s.classList.add('timeline-section')
@@ -106,15 +126,14 @@ export function setupHomeInteractions() {
       if (['#svg11928655256','#svg9612504074','#svg11100914896'].includes(use.getAttribute('href'))) use.closest('[data-framer-component-type="SVG"]')?.remove()
     })
     const list=s.children[1];if(!list)return;list.classList.add('experience-timeline')
-    for(const row of [...list.children]) {
-      const title=row.querySelector('h3');if(!title)continue
-      const paragraphs=[...row.querySelectorAll('p')].map(p=>p.textContent.trim()).filter(Boolean)
-      const entry=document.createElement('article');entry.className='timeline-entry'
-      const date=document.createElement('p');date.className='timeline-date';date.textContent=paragraphs.find(t=>/^20\d\d/.test(t)) || ''
-      const heading=document.createElement('h3');heading.textContent=title.textContent
-      const body=document.createElement('p');body.textContent=paragraphs.filter(t=>t!==date.textContent).join(' ')
-      entry.append(date,heading,body);row.replaceWith(entry)
-    }
+    list.replaceChildren(...experienceEntries.map(([when,role,copy,current])=>{
+      const entry=document.createElement('article');entry.className='timeline-entry'+(current?' is-current':'')
+      const date=document.createElement('p');date.className='timeline-date';date.textContent=when
+      if(current){const badge=document.createElement('span');badge.className='timeline-now';badge.textContent='Current';date.append(badge)}
+      const heading=document.createElement('h3');heading.textContent=role
+      const body=document.createElement('p');body.textContent=copy
+      entry.append(date,heading,body);return entry
+    }))
   })
   sections('My Experience Section').forEach(s=>{
     const stars=document.createElement('div');stars.className='timeline-margin-stars';stars.setAttribute('aria-hidden','true')

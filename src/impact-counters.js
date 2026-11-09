@@ -5,15 +5,15 @@ export function setupImpactCounters() {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)')
   const counters = [...section.querySelectorAll('[data-count]')].map(el => {
     const raw = el.dataset.count
-    const label = raw + '%'
     const value = Number(raw)
     const decimals = raw.includes('.') ? raw.split('.')[1].length : 0
-    el.setAttribute('aria-label', raw + ' percent reported improvement')
+    const points = el.dataset.unit === 'pts'
+    el.setAttribute('aria-label', points ? `increase of ${raw} percentage points` : `${raw} percent increase`)
     const visual = document.createElement('span')
     visual.setAttribute('aria-hidden', 'true'); visual.textContent = raw
-    const suffix = document.createElement('small'); suffix.textContent = '%'; suffix.setAttribute('aria-hidden','true')
-    const arrow = document.createElement('small'); arrow.className = 'be-up-arrow'; arrow.textContent = '↑ '; arrow.setAttribute('aria-hidden', 'true')
-    el.replaceChildren(arrow, visual, suffix); el.classList.add('impact-counter')
+    const suffix = document.createElement('small'); suffix.textContent = points ? ' pts' : '%'; suffix.setAttribute('aria-hidden','true')
+    const sign = document.createElement('span'); sign.className = 'be-up-arrow'; sign.textContent = '+'; sign.setAttribute('aria-hidden', 'true')
+    el.replaceChildren(sign, visual, suffix); el.classList.add('impact-counter')
     return { visual, label: raw, value, decimals }
   })
   if (!counters.length || reduced.matches) return

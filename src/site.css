@@ -14,7 +14,7 @@ header[data-framer-name="Phone Closed"],header[data-framer-name="Tablet Closed"]
 
 /* Small, tactile details preserve the reference layout. */
 @media (prefers-reduced-motion: no-preference) {
-  a, button, [role="button"] { transition: box-shadow .28s ease, filter .28s ease; }
+  a, button, [role="button"] { transition: box-shadow .14s ease, filter .14s ease; }
   a:hover, button:hover { filter: brightness(.97); }
   a:active, button:active { filter: brightness(.92); }
   .mobile-menu:not([hidden]) { animation: menu-enter .28s cubic-bezier(.16,1,.3,1); }
@@ -128,8 +128,8 @@ section.has-blinkit-project {height:auto!important;min-height:0!important;}
   .micro-sticker {animation:sticker-float var(--float-duration,6s) ease-in-out var(--float-delay,0s) infinite;animation-play-state:paused;}
   .micro-sticker.is-floating {animation-play-state:running;}
   @keyframes sticker-float {0%,100%{translate:0 0;rotate:0deg;}50%{translate:0 -7px;rotate:1.5deg;}}
-  .micro-project-card {transition:translate .4s cubic-bezier(.2,.7,.2,1);}
-  .micro-project-artwork {transition:scale .65s cubic-bezier(.2,.7,.2,1);transform-origin:center;}
+  .micro-project-card {transition:translate .18s cubic-bezier(.2,.7,.2,1);}
+  .micro-project-artwork {transition:scale .24s cubic-bezier(.2,.7,.2,1);transform-origin:center;}
   .micro-button {transition:translate .2s ease,scale .2s ease,box-shadow .2s ease,filter .2s ease;}
   .micro-button:active {translate:0 4px;scale:.985;}
   .micro-button.project-case-button:active {box-shadow:0 4px 0 #340019;}
