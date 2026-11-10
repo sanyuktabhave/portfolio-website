@@ -105,6 +105,7 @@ export function setupHomeInteractions() {
     <a class="portfolio-brand" href="/" aria-label="Sanyukta Bhave, home">Sanyukta</a>
     <nav aria-label="Portfolio navigation">
       <a href="/#portfolio">Selected work</a>
+      <a href="/resume.html">Resume</a>
       <a class="portfolio-linkedin" href="https://www.linkedin.com/in/sanyuktabhave/" target="_blank" rel="noopener noreferrer" aria-label="Sanyukta Bhave on LinkedIn">
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor">
           <path d="M20.45 2H3.55A1.55 1.55 0 0 0 2 3.55v16.9A1.55 1.55 0 0 0 3.55 22h16.9A1.55 1.55 0 0 0 22 20.45V3.55A1.55 1.55 0 0 0 20.45 2ZM8.08 18.94H5.11V9.39h2.97v9.55ZM6.59 8.09a1.72 1.72 0 1 1 0-3.44 1.72 1.72 0 0 1 0 3.44Zm12.35 10.85h-2.97v-4.65c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.66V9.39h2.85v1.3h.04a3.12 3.12 0 0 1 2.81-1.54c3 0 3.56 1.98 3.56 4.55v5.24Z"/>
