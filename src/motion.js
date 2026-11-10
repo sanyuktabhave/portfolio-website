@@ -19,7 +19,7 @@ export function setupMotion() {
         const animation = el.animate([
           { opacity: 0, translate: '0 28px' },
           { opacity: 1, translate: '0 0' }
-        ], { duration: 760, delay: Number(el.dataset.motionDelay || 0), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'none' })
+        ], { duration: 330, delay: Number(el.dataset.motionDelay || 0), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'none' })
         animations.add(animation)
         animation.finished.catch(() => {}).finally(() => animations.delete(animation))
       }

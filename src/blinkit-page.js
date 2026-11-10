@@ -25,40 +25,88 @@ export function setupBlinkitPage() {
   })
   dialog.querySelector('[data-close]').addEventListener('click', () => dialog.close())
   dialog.addEventListener('close', () => { document.body.style.overflow = priorOverflow || ''; trigger?.focus() })
-  const toggle = page.querySelector('.be-design-trigger')
-  const subsections = page.querySelector('#design-subsections')
-  toggle.addEventListener('click', () => {
-    const expanded = true
+  const nav = page.querySelector('.be-nav')
+  const group = nav.querySelector('.be-nav-design-group')
+  const toggle = nav.querySelector('.be-design-trigger')
+  const subsections = nav.querySelector('#design-subsections')
+  const links = [...nav.querySelectorAll('a')]
+  const designLinks = [...subsections.querySelectorAll('a')]
+  const hoverLayout = matchMedia('(min-width: 1100px) and (hover: hover) and (pointer: fine)')
+  let pinned = false
+  let hovered = false
+
+  function syncDisclosure() {
+    const expanded = pinned || hovered
     toggle.setAttribute('aria-expanded', String(expanded))
     subsections.hidden = !expanded
-  })
-  if ([...subsections.querySelectorAll('a')].some(link => link.hash === location.hash)) {
-    toggle.setAttribute('aria-expanded', 'true')
-    subsections.hidden = false
+    page.style.setProperty('--be-nav-height', `${nav.offsetHeight}px`)
   }
-  page.querySelectorAll('.be-nav > .be-wrap > a').forEach(link => {
-    link.addEventListener('click', () => {
-      toggle.setAttribute('aria-expanded', 'false')
-      subsections.hidden = true
-    })
+
+  group.addEventListener('pointerenter', event => {
+    if (event.pointerType !== 'mouse' || !hoverLayout.matches) return
+    hovered = true
+    syncDisclosure()
   })
-  const links = [...page.querySelectorAll('.be-nav a')]
-  const targets = links.map(link => ({link, section: document.querySelector(link.hash)})).filter(item => item.section)
+  group.addEventListener('pointerleave', () => {
+    if (subsections.contains(document.activeElement)) return
+    hovered = false
+    syncDisclosure()
+  })
+  group.addEventListener('focusout', event => {
+    if (!group.contains(event.relatedTarget) && !group.matches(':hover')) {
+      hovered = false
+      syncDisclosure()
+    }
+  })
+  hoverLayout.addEventListener('change', () => {
+    hovered = false
+    syncDisclosure()
+  })
+  nav.addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || subsections.hidden) return
+    event.preventDefault()
+    pinned = hovered = false
+    toggle.focus({ preventScroll: true })
+    syncDisclosure()
+  })
+
+  function syncHash() {
+    const hash = location.hash
+    pinned = hash === toggle.hash || designLinks.some(link => link.hash === hash)
+    hovered = false
+    syncDisclosure()
+  }
+  addEventListener('hashchange', syncHash)
+  for (const link of links) {
+    link.addEventListener('click', () => {
+      pinned = link === toggle || designLinks.includes(link)
+      hovered = false
+      syncDisclosure()
+    })
+  }
+  syncHash()
+  new ResizeObserver(() => page.style.setProperty('--be-nav-height', `${nav.offsetHeight}px`)).observe(nav)
+
+  const targets = links.map(link => ({link, section: page.querySelector(link.hash)})).filter(item => item.section)
   let scheduled = false
-  const updateNavigation = () => {
+  function updateNavigation() {
     scheduled = false
     let active = targets[0]
+    const top = Math.min(innerHeight * .35, 200)
     for (const target of targets) {
-      if (target.section.getBoundingClientRect().top <= innerHeight * .35) active = target
+      if (target.section.getBoundingClientRect().top <= top) active = target
     }
     links.forEach(link => {
       if (link === active?.link) link.setAttribute('aria-current', 'location')
       else link.removeAttribute('aria-current')
     })
+    toggle.classList.toggle('is-current-group', designLinks.includes(active?.link))
   }
   addEventListener('scroll', () => {
-    if (!scheduled) { scheduled = true; requestAnimationFrame(updateNavigation) }
-  }, {passive:true})
+    if (scheduled) return
+    scheduled = true
+    requestAnimationFrame(updateNavigation)
+  }, { passive: true })
   addEventListener('resize', updateNavigation)
   updateNavigation()
 }

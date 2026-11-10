@@ -23,3 +23,24 @@ header .unified-cta.unified-cta{min-height:40px!important;padding:9px 20px!impor
 header .unified-cta.unified-cta:is(:hover,:focus-visible){box-shadow:0 4px 0 #340019!important}
 .button-layout-container{overflow:visible!important}
 .unified-cta .liquid-label{white-space:normal;text-align:center}
+
+/* Start the fill immediately and keep the label readable during the transition. */
+.liquid-button.liquid-button {
+  --liquid-delay: 150ms;
+  transition: scale 130ms ease-out, color 120ms ease-out !important;
+}
+.liquid-button .liquid-surface,
+.liquid-button:is(:hover,:focus-visible) .liquid-surface {
+  width: 100%;
+  height: 160%;
+  translate: 0 103%;
+  transition: translate var(--liquid-delay) ease-out;
+}
+.liquid-button:is(:hover,:focus-visible) .liquid-surface { translate: 0 0; }
+.liquid-button:is(:hover,:focus-visible) :is(p,span:not(.liquid-surface),h3) { transition: none; }
+@media (hover: none) {
+  .liquid-button:active .liquid-surface { translate: 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .liquid-button.liquid-button, .liquid-button .liquid-surface { transition: none !important; }
+}

@@ -53,3 +53,39 @@ button.be-hero-image{display:block;width:100%;padding:0;border:0;text-align:left
 
 .be-nav-design-heading>a{font-weight:300;}
 .be-nav-design-heading>a[aria-current],.be-nav-design-heading>a[aria-expanded="true"]{font-weight:500;}
+
+.be-video-media { width: 100%; min-width: 0; }
+.be-video-media video { display: block; width: 100%; height: auto; object-fit: contain; background: #f2eddf; }
+#removing-the-guesswork .be-video-media { width: min(100%, 320px); margin-inline: auto; }
+
+.be-nav a { border-radius: 8px; transition: background-color 120ms ease-out, color 120ms ease-out; }
+.be-nav a:is(:hover, :focus-visible, .is-current-group) { background: #f8efd8; filter: none; }
+.be-nav a:focus-visible { outline-offset: -3px; }
+.be-design-trigger[aria-expanded="true"]::before { content: none; }
+.be-nav-design-heading > a { font-weight: 300; }
+@media (min-width: 1100px) {
+  /* Keep the hovered row under the pointer while the child list opens. */
+  .be-nav { top: clamp(90px, 20vh, 180px); transform: none; max-height: calc(100dvh - clamp(90px, 20vh, 180px) - 18px); }
+  .be-nav-design-heading > a { display: block; width: 100%; }
+  .be-nav-subsections a { min-height: 30px; }
+}
+@media (max-width: 1099px) {
+  .blinkit-editorial .be-nav > .be-wrap { flex-wrap: wrap; align-items: center; gap: 1px 11px; overflow: visible; padding-block: 3px; }
+  .be-nav-design-group, .be-nav-design-heading { display: contents; }
+  .be-nav a { padding: 7px 3px; border-bottom-width: 2px; }
+  .be-nav-subsections { order: 1; flex: 1 0 100%; min-width: 0; gap: 9px; overflow-x: auto; border-top: 1px solid #34001922; }
+  .be-nav-subsections a { padding-inline: 8px; }
+  .blinkit-editorial :is(section, article, div, h3, h4)[id] { scroll-margin-top: calc(var(--be-nav-height, 70px) + 12px) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .be-nav a { transition: none; }
+}
+
+.blinkit-editorial .be-metrics article { min-width: 0; }
+.blinkit-editorial .be-metrics .be-rate { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin-top: 12px; font: 500 1rem/1.15 Outfit, sans-serif; font-variant-numeric: tabular-nums; }
+.be-rate-before { color: #75495e; white-space: nowrap; }
+.be-rate strong { color: #340019; font-size: clamp(1.45rem, 2.4vw, 2.2rem); font-weight: 600; white-space: nowrap; }
+
+.be-video-media [hidden] { display: none !important; }
+.be-video-fallback { display: block; width: 100%; height: auto; border-radius: 12px; }
+.be-hero-video .be-video-fallback { border-radius: 26px; }

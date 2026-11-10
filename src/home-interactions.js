@@ -1,4 +1,5 @@
 import './home-interactions.css'
+import { availability, gmailContactHref } from './portfolio-contact.js'
 
 export function setupHomeInteractions() {
   if ((location.pathname.replace(/\/$/, '') || '/') !== '/') return
@@ -8,12 +9,15 @@ export function setupHomeInteractions() {
   })
   const sections = name => [...document.querySelectorAll(`section[data-framer-name="${name}"]`)]
   const reduced = matchMedia('(prefers-reduced-motion: reduce)')
-  const titles = ['Look what I made!', 'My not-so secret sauce', 'Things made me blush']
+  const titles = new Map([
+    ['Mynot-sosecretsauce', 'My not-so secret sauce'],
+    ['Thingsmademeblush', 'Things made me blush'],
+  ])
   const observer = new IntersectionObserver(entries => entries.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('heading-arrived'); observer.unobserve(e.target) }
   }), {threshold: .5})
   document.querySelectorAll('h2').forEach(h => {
-    const title = titles.find(t => t.replace(/\s/g,'') === h.textContent.replace(/\s/g,''))
+    const title = titles.get(h.textContent.replace(/\s/g,''))
     if (!title) return
     h.textContent = ''; h.classList.add('playful-heading'); h.setAttribute('aria-label',title)
     title.split(' ').forEach((word,i) => {
@@ -66,9 +70,15 @@ export function setupHomeInteractions() {
     ['Uber','uber.svg','Started as an intern on the driver app, then converted to contractor for the supplier portal — trip management for B2B riders taking Uber’s office shuttles. Best team I’ve worked with. 💛'],
     ['HDFC','hdfc.svg','My summer internship, and my first time doing design research outside an academic setting. Also where I finally learned auto layout.']
   ]
-  document.querySelectorAll('section').forEach((s,sectionIndex)=>{
-    if(![...s.querySelectorAll('.playful-heading')].some(h=>h.getAttribute('aria-label')==='Look what I made!'))return
+  document.querySelectorAll('section.has-blinkit-project').forEach((s,sectionIndex)=>{
+    const grid = s.querySelector('.project-grid-with-blinkit')
+    const title = s.querySelector('[data-framer-name="Heading and Label"]')
+    if (!grid || !title) return
     s.classList.add('has-company-strip')
+    title.className = 'selected-work-title'
+    title.innerHTML = '<h2>Selected work</h2>'
+    title.removeAttribute('style')
+    grid.prepend(title)
     const strip=document.createElement('div');strip.className='company-strip';strip.innerHTML='<p>Places I Have Worked In</p><div class="company-logos"></div>'
     const row=strip.querySelector('.company-logos')
     companies.forEach(([name,asset,copy],i)=>{
@@ -88,39 +98,125 @@ export function setupHomeInteractions() {
       document.addEventListener('pointerdown',e=>{if(!item.contains(e.target))show(false)})
     });s.prepend(strip)
   })
-  sections('Hero Section').forEach(s=>{
-    const actions=[...s.querySelectorAll('a')].filter(a=>/^(Hire Me!|See my Portfolio)$/.test(a.textContent.trim()))
-    if(actions.length===2){
-      let common=actions[0].parentElement
-      while(common && !common.contains(actions[1]))common=common.parentElement
-      if(common && common!==s){const row=document.createElement('div');row.className='hero-action-row';row.append(...actions);common.replaceWith(row)}
+  for (const oldHeader of document.querySelectorAll('header[data-framer-name="Phone Closed"], header[data-framer-name="Tablet Closed"], header[data-framer-name="Desktop"]')) oldHeader.remove()
+  const header = document.createElement('header')
+  header.className = 'portfolio-header'
+  header.innerHTML = `
+    <a class="portfolio-brand" href="/" aria-label="Sanyukta Bhave, home">Sanyukta</a>
+    <nav aria-label="Portfolio navigation">
+      <a href="/#portfolio">Selected work</a>
+      <a class="portfolio-linkedin" href="https://www.linkedin.com/in/sanyuktabhave/" target="_blank" rel="noopener noreferrer" aria-label="Sanyukta Bhave on LinkedIn">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor">
+          <path d="M20.45 2H3.55A1.55 1.55 0 0 0 2 3.55v16.9A1.55 1.55 0 0 0 3.55 22h16.9A1.55 1.55 0 0 0 22 20.45V3.55A1.55 1.55 0 0 0 20.45 2ZM8.08 18.94H5.11V9.39h2.97v9.55ZM6.59 8.09a1.72 1.72 0 1 1 0-3.44 1.72 1.72 0 0 1 0 3.44Zm12.35 10.85h-2.97v-4.65c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.66V9.39h2.85v1.3h.04a3.12 3.12 0 0 1 2.81-1.54c3 0 3.56 1.98 3.56 4.55v5.24Z"/>
+        </svg>
+      </a>
+      <a href="${gmailContactHref}" target="_blank" rel="noopener noreferrer">Contact</a>
+    </nav>`
+  document.querySelector('#app').prepend(header)
+
+  // Reuse the illustration layers from the original desktop portrait at every breakpoint.
+  const originalPortrait = document.querySelector('[data-framer-name="Image Box Area"].framer-7yyc0g')
+  const portraitStickers = [
+    ['creative', 'Creative', '.framer-drn9mx-container svg'],
+    ['edgy', 'Edgy', '.framer-1h224it-container svg'],
+    ['timeless', 'Timeless', '.framer-tqofvi-container svg'],
+    ['pink', '', '[data-framer-name="Big Pink"] svg'],
+    ['yellow', '', '[data-framer-name="Big Yellow"] svg'],
+    ['blue', '', '[data-framer-name="Big Blue"] svg'],
+  ]
+  sections('Hero Section').forEach((section, index) => {
+    const original = section.querySelector('img')
+    if (!original) return
+    const source = original.getAttribute('src')
+    section.classList.add('compact-hero')
+    section.innerHTML = `
+      <div class="portfolio-intro">
+        <p class="portfolio-current"><span aria-hidden="true">✦</span> Sanyukta Bhave · Product Designer</p>
+        <h1>Making complex<br> workflows <span>simpler.</span></h1>
+        <p class="portfolio-value">I design mobility experiences. Currently at <strong>Blinkit</strong>, previously at Uber, and studying XR design at IIT Jodhpur.</p>
+        <p class="portfolio-availability">${availability}</p>
+      </div>
+      <figure class="portfolio-portrait">
+        <img src="${source}" alt="Sanyukta Bhave smiling" width="682" height="1024">
+      </figure>`
+    const portrait = section.querySelector('.portfolio-portrait')
+    for (const [name, label, selector] of portraitStickers) {
+      const artwork = originalPortrait?.querySelector(selector)?.cloneNode(true)
+      if (!artwork) continue
+      const sticker = document.createElement('span')
+      sticker.className = `portrait-decal portrait-decal-${name}`
+      sticker.setAttribute('aria-hidden', 'true')
+      if (!artwork.hasAttribute('viewBox')) artwork.setAttribute('viewBox', '0 0 50 50')
+      sticker.append(artwork)
+      if (label) {
+        const caption = document.createElement('span')
+        caption.textContent = label
+        sticker.append(caption)
+      }
+      portrait.append(sticker)
     }
-    const original=s.querySelector('img');if(!original)return
-    const frame=original.parentElement;frame.classList.add('portrait-switch');frame.tabIndex=0;frame.setAttribute('role','button');frame.setAttribute('aria-label','Show illustrated portrait');frame.setAttribute('aria-pressed','false')
-    const illustration=document.createElement('img');illustration.src='/home-assets/portrait-illustrated.png';illustration.alt='Illustrated portrait of Sanyukta';illustration.className='illustrated-portrait';frame.append(illustration)
-    const toggle=()=>{const on=frame.classList.toggle('show-illustration');frame.setAttribute('aria-pressed',String(on))};frame.addEventListener('click',toggle);frame.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}})
+    const control = document.createElement('button')
+    control.type = 'button'
+    control.className = 'portrait-reveal'
+    control.setAttribute('aria-label', 'Show LEGO-style portrait')
+    control.setAttribute('aria-pressed', 'false')
+    control.setAttribute('aria-controls', `lego-portrait-${index}`)
+    const lego = document.createElement('img')
+    lego.id = `lego-portrait-${index}`
+    lego.className = 'portrait-lego'
+    lego.alt = ''
+    lego.width = 682
+    lego.height = 1024
+    lego.addEventListener('load', () => portrait.classList.add('has-lego'))
+    lego.src = '/home-assets/portrait-lego.jpg'
+    control.addEventListener('click', () => {
+      const shown = portrait.classList.toggle('show-lego')
+      control.setAttribute('aria-pressed', String(shown))
+    })
+    portrait.append(lego, control)
   })
-  sections('My Experience Section').forEach(s=>{
-    s.classList.add('timeline-section')
-    s.querySelectorAll('svg use').forEach(use=>{
+  const experienceEntries = [
+    ['April 2026 – Present', 'Product Designer 1 · Blinkit', 'I design the delivery partner app, including onboarding, the new rider experience, and the referral program.'],
+    ['2025 – 2027', 'Master’s in XR design · IIT Jodhpur', 'I’m studying interaction design for extended reality.'],
+    ['April 2024 – June 2025', 'Product Design Contractor · Uber', 'I worked on trip management for fleet suppliers and on navigation workflows for drivers of high capacity vehicles.'],
+    ['December 2023 – April 2024', 'Product Design Intern · Hyperbots Inc', 'I designed conversational flows for an AI chatbot and contributed to the brand and website.'],
+    ['May 2023 – August 2023', 'Product Design Intern · HDFC Bank', 'I worked on PayZapp and researched the needs of merchants using the HDFC merchant app.'],
+    ['2020 – 2024', 'Bachelor’s in Interaction Design · JK Lakshmipat University', 'My mentors and peers at JKLU helped shape me as a designer. Thanks to Dr Devanuj for teaching me interaction design, Chandni Naidu for inspiring me to make something of my own, and Prakriti Sharma and Himangi Puri for the projects we created together.'],
+  ]
+  sections('My Experience Section').forEach(section => {
+    section.classList.add('timeline-section')
+    section.querySelectorAll('svg use').forEach(use => {
       if (['#svg11928655256','#svg9612504074','#svg11100914896'].includes(use.getAttribute('href'))) use.closest('[data-framer-component-type="SVG"]')?.remove()
     })
-    const list=s.children[1];if(!list)return;list.classList.add('experience-timeline')
-    for(const row of [...list.children]) {
-      const title=row.querySelector('h3');if(!title)continue
-      const paragraphs=[...row.querySelectorAll('p')].map(p=>p.textContent.trim()).filter(Boolean)
-      const entry=document.createElement('article');entry.className='timeline-entry'
-      const date=document.createElement('p');date.className='timeline-date';date.textContent=paragraphs.find(t=>/^20\d\d/.test(t)) || ''
-      const heading=document.createElement('h3');heading.textContent=title.textContent
-      const body=document.createElement('p');body.textContent=paragraphs.filter(t=>t!==date.textContent).join(' ')
-      entry.append(date,heading,body);row.replaceWith(entry)
-    }
+    const list = section.children[1]
+    if (!list) return
+    list.classList.add('experience-timeline')
+    list.replaceChildren(...experienceEntries.map(([date, title, summary], index) => {
+      const entry = document.createElement('article')
+      entry.className = index ? 'timeline-entry' : 'timeline-entry timeline-current'
+      const time = document.createElement('p')
+      time.className = 'timeline-date'
+      time.textContent = date
+      const heading = document.createElement('h3')
+      heading.textContent = title
+      const copy = document.createElement('p')
+      copy.textContent = summary
+      entry.append(time, heading, copy)
+      return entry
+    }))
   })
   sections('My Experience Section').forEach(s=>{
     const stars=document.createElement('div');stars.className='timeline-margin-stars';stars.setAttribute('aria-hidden','true')
     stars.innerHTML='<span>✧</span><span>✧</span>';s.append(stars)
   })
   sections('About Me Section').forEach(s=>{
+    s.querySelector('a[href^="mailto:"]')?.remove()
+    const intro = [...s.querySelectorAll('p')].find(p => p.textContent.includes('Hello! I’m Sanyukta'))
+    if (intro) {
+      const more = [...s.querySelectorAll('p')].find(p => p.textContent.startsWith('I love collaborating with clients'))
+      more?.remove()
+      intro.textContent = 'I’m Sanyukta, a product designer at Blinkit. I work on the delivery partner app, and previously designed fleet and driver workflows at Uber. I’m pursuing a master’s in XR design at IIT Jodhpur (2025–2027). ' + availability
+    }
     const imgs=[...s.querySelectorAll('img')];if(!imgs.length)return
     let common=imgs[0].parentElement;while(common && !imgs.every(i=>common.contains(i)))common=common.parentElement
     if(!common || common===s)return
@@ -155,6 +251,8 @@ export function setupHomeInteractions() {
   const about = sections('About Me Section')
   const process = sections('Section - Process')
   sections('Featured Projects Section').forEach((projects, index) => {
+    const heading = projects.querySelector('h2')
+    if (heading && heading.textContent.trim() === 'Featured Projects') heading.textContent = 'Other projects'
     // Framer's phone layout also assigns CSS order to the project blocks.
     for (const sibling of projects.parentElement.children) sibling.style.setProperty('order', 'initial', 'important')
     let anchor = projects

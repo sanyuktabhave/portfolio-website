@@ -2,9 +2,9 @@ import './liquid-buttons.css'
 // One visual surface per control: exported Framer buttons sometimes contain a
 // second button and several decorative backgrounds inside their actual link.
 export function setupLiquidButtons() {
-  const cta = /^(Hire Me!?|Contact Me|See my Portfolio|View Case Study|See Project|Back to projects.*|Back to portfolio.*)$/
+  const cta = /^(Contact|Contact Me|View selected work|View Case Study|See Project|Back to projects.*|Back to portfolio.*)$/
   for (const button of [...document.querySelectorAll('button,a,[role="button"]')]) {
-    if (!button.isConnected || button.matches('.memory-card,.portrait-switch,.company-logo-button,.process-tab,[data-enlarge]') || button.closest('svg')) continue
+    if (!button.isConnected || button.matches('.memory-card,.portrait-reveal,.company-logo-button,.process-tab,[data-enlarge]') || button.closest('svg')) continue
     if (button.parentElement.closest('.liquid-button')) continue
     const label = button.textContent.trim()
     if (button.tagName === 'A' && !cta.test(label) && !button.classList.contains('project-case-button')) continue
@@ -14,7 +14,6 @@ export function setupLiquidButtons() {
       const text=document.createElement('span');text.className='liquid-label';text.textContent=label;button.append(text)
       button.classList.remove('micro-button')
       button.classList.add('unified-cta')
-      if (/^Hire Me/.test(label)) button.classList.add('unified-cta-dark')
       // Preserve rounded clipping on the control, but let its shadow and focus
       // ring extend through the old fixed-size layout wrappers.
       let parent=button.parentElement

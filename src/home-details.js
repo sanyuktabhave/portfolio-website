@@ -17,12 +17,12 @@ export function setupHomeDetails() {
       card.classList.add('micro-project-card')
       const image = card.querySelector('.blinkit-project-image,[data-framer-name="Image wrapper"]')
       image?.classList.add('micro-project-image')
-      const artwork = image?.querySelector('a[data-framer-name="Image"]') || image?.querySelector('img')
+      const artwork = image?.querySelector('a[data-framer-name="Image"]') || image?.querySelector(':scope > img')
       artwork?.classList.add('micro-project-artwork')
     }
   }
   for (const button of document.querySelectorAll('a,button')) {
-    if (/^(View Case Study|See Project|Hire Me!|See my Portfolio)$/.test(button.textContent.trim())) {
+    if (/^(View Case Study|See Project|Contact|View selected work)$/.test(button.textContent.trim())) {
       button.classList.add('micro-button')
     }
   }
