@@ -192,9 +192,9 @@
 .interactive-home .project-grid-with-blinkit [data-framer-name="Image wrapper"] { aspect-ratio: 16 / 10 !important; height: auto !important; }
 .interactive-home .project-grid-with-blinkit h3 { font-size: clamp(17px, 1.6vw, 22px) !important; }
 .interactive-home .project-grid-with-blinkit .unified-cta.unified-cta { font-size: 15px !important; padding: 10px 16px !important; min-height: 40px !important; }
-@media (max-width: 359px) {
-  .portfolio-header { gap: 8px; }
-  .portfolio-header nav { gap: 6px; }
+@media (max-width: 379px) {
+  .portfolio-header { flex-direction: column; gap: 2px; padding: 6px 10px; }
+  .portfolio-header nav { gap: 12px; }
   .portfolio-header .portfolio-linkedin { width: 25px; }
   .portfolio-header .unified-cta.unified-cta { padding-inline: 9px !important; }
 }
