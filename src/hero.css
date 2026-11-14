@@ -1,0 +1,390 @@
+/* Illustrated hero — Figma file 8B9pSCr2juOhGWmed4gPvL, node 43:7036.
+   The design frame is 1200 x 688. --u is one design pixel, so every offset
+   below is the design's own number and the scene scales as one piece. */
+@font-face {
+  font-family: 'Dekko';
+  src: url('/hero-assets/dekko-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.fig-hero {
+  container-type: inline-size;
+  --u: calc(100cqw / 1200);
+  position: relative;
+  width: 100%;
+  height: calc(688 * var(--u));
+  margin: 0;
+  overflow: hidden;
+  background: #d7eefe;
+  isolation: isolate;
+}
+
+/* One coordinate system, 1200 design px wide, centred in the hero. On narrow
+   screens --u grows, so the stage overflows the viewport and the scene crops
+   evenly at both edges instead of shrinking away. */
+.fig-hero-stage {
+  position: absolute;
+  left: 50%;
+  top: var(--stage-top, 0px);
+  width: calc(1200 * var(--u));
+  height: calc(688 * var(--u));
+  transform: translateX(-50%);
+}
+
+.fig-hero-wash { position: absolute; inset: 0; background: #fff; opacity: .43; }
+
+/* Crayon texture, revealed by the zigzag stroke used as a mask. */
+.fig-hero-scribble {
+  position: absolute;
+  left: calc(-4.59 * var(--u));
+  top: calc(-8.41 * var(--u));
+  width: calc(1209.183 * var(--u));
+  height: calc(693.265 * var(--u));
+  overflow: visible;
+}
+.fig-hero-scribble-path { stroke-dasharray: 1 1; stroke-dashoffset: 0; }
+
+.fig-hero-crayon {
+  position: absolute;
+  left: calc(1220 * var(--u));
+  top: calc(4 * var(--u));
+  width: calc(241 * var(--u));
+  height: calc(166.5 * var(--u));
+  transform: translate(calc(var(--hero-mx, 220) * var(--u)), calc(var(--hero-my, 864) * var(--u)));
+  opacity: 0;
+}
+
+/* Shared geometry for the illustration layers: a clipping box with the artwork
+   positioned inside it exactly as the design crops it. */
+.fig-art, .fig-leaf {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u));
+  height: calc(var(--h) * var(--u));
+  overflow: hidden;
+  pointer-events: none;
+  transform: scaleX(var(--sx, 1)) translateY(calc(var(--dy, 0) * var(--u)));
+}
+.fig-art > img, .fig-leaf > img {
+  position: absolute;
+  left: var(--il);
+  top: var(--it);
+  width: var(--iw);
+  height: var(--ih);
+  max-width: none;
+}
+.is-flipped { --sx: -1; }
+
+/* Torn-paper card behind the copy. The SVG has preserveAspectRatio="none", so
+   it stretches with the copy block when the text needs more room. */
+.fig-hero-card {
+  position: absolute;
+  left: calc(296 * var(--u));
+  top: calc(121 * var(--u));
+  width: calc(596.847 * var(--u));
+  height: calc(200 * var(--u));
+}
+.fig-hero-card > img {
+  position: absolute;
+  inset: 0 -4.76% -16.7% -2.75%;
+  width: auto;
+  height: auto;
+}
+
+.fig-hero-copy {
+  position: absolute;
+  left: calc(336.85 * var(--u));
+  top: calc(152 * var(--u));
+  width: calc(501 * var(--u));
+  display: flex;
+  flex-direction: column;
+  gap: calc(4 * var(--u));
+  align-items: flex-start;
+  color: #000;
+}
+.fig-hero-copy h1 {
+  width: calc(490 * var(--u));
+  margin: 0;
+  font: 400 max(26px, calc(75.473 * var(--u)))/normal 'Dekko', 'Delicious Handrawn', cursive;
+  word-break: break-word;
+}
+.fig-hero-mark-wrap { position: relative; display: inline-block; }
+.fig-hero-mark {
+  position: absolute;
+  left: calc(228 * var(--u));
+  top: calc(25.54 * var(--u));
+  width: calc(269 * var(--u));
+  height: calc(54.389 * var(--u));
+  background: #ffed66;
+}
+.fig-hero-words { position: relative; }
+/* The design sets this heading on a single line (text node is 490 x 89, one
+   line of the 75.473px face); it only wraps on narrow screens. */
+.fig-hero-copy h1 { white-space: nowrap; }
+.fig-hero-copy h1 em { font-style: normal; }
+.fig-hero-copy p {
+  width: calc(481 * var(--u));
+  margin: 0;
+  font: 300 max(13px, calc(18 * var(--u)))/normal 'Outfit', sans-serif;
+  text-align: center;
+}
+.fig-hero-copy strong { font-weight: 500; }
+
+/* Narrow screens: keep the composition, but stop the copy shrinking with the
+   scene — the clamps above hold it readable and the card stretches to match. */
+@media (max-width: 900px) {
+  /* Zoom the scene (a narrower design window) so the copy stays readable, and
+     drop it below the floating header. */
+  .fig-hero { --u: calc(100cqw / 640); --stage-top: 56px; height: calc(688 * var(--u) + 56px); }
+  .fig-hero-card { height: calc(250 * var(--u)); }
+}
+
+@keyframes hero-crayon-x {
+  0% { --hero-mx: 220; }
+  40.206% { animation-timing-function: ease-in-out; --hero-mx: 220; }
+  43.814% { --hero-mx: -0.0000; }
+  44.372% { --hero-mx: -103.3333; }
+  44.930% { --hero-mx: -206.6667; }
+  45.488% { --hero-mx: -310.0000; }
+  46.046% { --hero-mx: -413.3333; }
+  46.604% { --hero-mx: -516.6667; }
+  47.162% { --hero-mx: -620.0000; }
+  47.720% { --hero-mx: -723.3333; }
+  48.278% { --hero-mx: -826.6667; }
+  48.836% { --hero-mx: -930.0000; }
+  49.394% { --hero-mx: -1033.3333; }
+  49.952% { --hero-mx: -1136.6667; }
+  50.510% { --hero-mx: -1240.0000; }
+  51.032% { --hero-mx: -1240.0000; }
+  51.590% { --hero-mx: -1136.6667; }
+  52.148% { --hero-mx: -1033.3333; }
+  52.706% { --hero-mx: -930.0000; }
+  53.264% { --hero-mx: -826.6667; }
+  53.822% { --hero-mx: -723.3333; }
+  54.380% { --hero-mx: -620.0000; }
+  54.938% { --hero-mx: -516.6667; }
+  55.496% { --hero-mx: -413.3333; }
+  56.054% { --hero-mx: -310.0000; }
+  56.612% { --hero-mx: -206.6667; }
+  57.170% { --hero-mx: -103.3333; }
+  57.728% { --hero-mx: -0.0000; }
+  58.250% { --hero-mx: -0.0000; }
+  58.808% { --hero-mx: -103.3333; }
+  59.366% { --hero-mx: -206.6667; }
+  59.924% { --hero-mx: -310.0000; }
+  60.482% { --hero-mx: -413.3333; }
+  61.040% { --hero-mx: -516.6667; }
+  61.598% { --hero-mx: -620.0000; }
+  62.156% { --hero-mx: -723.3333; }
+  62.714% { --hero-mx: -826.6667; }
+  63.272% { --hero-mx: -930.0000; }
+  63.830% { --hero-mx: -1033.3333; }
+  64.388% { --hero-mx: -1136.6667; }
+  64.946% { --hero-mx: -1240.0000; }
+  65.468% { --hero-mx: -1240.0000; }
+  66.026% { --hero-mx: -1136.6667; }
+  66.584% { --hero-mx: -1033.3333; }
+  67.142% { --hero-mx: -930.0000; }
+  67.700% { --hero-mx: -826.6667; }
+  68.258% { --hero-mx: -723.3333; }
+  68.816% { --hero-mx: -620.0000; }
+  69.374% { --hero-mx: -516.6667; }
+  69.932% { --hero-mx: -413.3333; }
+  70.490% { --hero-mx: -310.0000; }
+  71.048% { --hero-mx: -206.6667; }
+  71.606% { --hero-mx: -103.3333; }
+  72.164% { --hero-mx: -0.0000; }
+  72.686% { --hero-mx: -0.0000; }
+  73.244% { --hero-mx: -103.3333; }
+  73.802% { --hero-mx: -206.6667; }
+  74.360% { --hero-mx: -310.0000; }
+  74.918% { --hero-mx: -413.3333; }
+  75.476% { --hero-mx: -516.6667; }
+  76.034% { --hero-mx: -620.0000; }
+  76.592% { --hero-mx: -723.3333; }
+  77.150% { --hero-mx: -826.6667; }
+  77.708% { --hero-mx: -930.0000; }
+  78.266% { --hero-mx: -1033.3333; }
+  78.824% { --hero-mx: -1136.6667; }
+  79.382% { --hero-mx: -1240.0000; }
+  79.904% { --hero-mx: -1240.0000; }
+  80.462% { --hero-mx: -1136.6667; }
+  81.020% { --hero-mx: -1033.3333; }
+  81.578% { --hero-mx: -930.0000; }
+  82.136% { --hero-mx: -826.6667; }
+  82.694% { --hero-mx: -723.3333; }
+  83.252% { --hero-mx: -620.0000; }
+  83.810% { --hero-mx: -516.6667; }
+  84.368% { --hero-mx: -413.3333; }
+  84.926% { --hero-mx: -310.0000; }
+  85.484% { --hero-mx: -206.6667; }
+  86.042% { --hero-mx: -103.3333; }
+  86.600% { --hero-mx: -0.0000; }
+  87.122% { --hero-mx: -0.0000; }
+  87.680% { --hero-mx: -103.3333; }
+  88.238% { --hero-mx: -206.6667; }
+  88.796% { --hero-mx: -310.0000; }
+  89.354% { --hero-mx: -413.3333; }
+  89.912% { --hero-mx: -516.6667; }
+  90.470% { --hero-mx: -620.0000; }
+  91.028% { --hero-mx: -723.3333; }
+  91.586% { --hero-mx: -826.6667; }
+  92.144% { --hero-mx: -930.0000; }
+  92.702% { --hero-mx: -1033.3333; }
+  93.260% { --hero-mx: -1136.6667; }
+  93.818% { animation-timing-function: ease-in-out; --hero-mx: -1240.0000; }
+  98.454% { --hero-mx: 220; }
+  100% { --hero-mx: 220; }
+}
+
+@keyframes hero-crayon-y {
+  0% { --hero-my: 864; }
+  40.206% { animation-timing-function: ease-in-out; --hero-my: 864; }
+  43.814% { --hero-my: 0.0000; }
+  44.372% { --hero-my: 56.0000; }
+  44.930% { --hero-my: 0.0000; }
+  45.488% { --hero-my: 56.0000; }
+  46.046% { --hero-my: 0.0000; }
+  46.604% { --hero-my: 56.0000; }
+  47.162% { --hero-my: 0.0000; }
+  47.720% { --hero-my: 56.0000; }
+  48.278% { --hero-my: 0.0000; }
+  48.836% { --hero-my: 56.0000; }
+  49.394% { --hero-my: 0.0000; }
+  49.952% { --hero-my: 56.0000; }
+  50.510% { --hero-my: 0.0000; }
+  51.032% { --hero-my: 110.0000; }
+  51.590% { --hero-my: 166.0000; }
+  52.148% { --hero-my: 110.0000; }
+  52.706% { --hero-my: 166.0000; }
+  53.264% { --hero-my: 110.0000; }
+  53.822% { --hero-my: 166.0000; }
+  54.380% { --hero-my: 110.0000; }
+  54.938% { --hero-my: 166.0000; }
+  55.496% { --hero-my: 110.0000; }
+  56.054% { --hero-my: 166.0000; }
+  56.612% { --hero-my: 110.0000; }
+  57.170% { --hero-my: 166.0000; }
+  57.728% { --hero-my: 110.0000; }
+  58.250% { --hero-my: 220.0000; }
+  58.808% { --hero-my: 276.0000; }
+  59.366% { --hero-my: 220.0000; }
+  59.924% { --hero-my: 276.0000; }
+  60.482% { --hero-my: 220.0000; }
+  61.040% { --hero-my: 276.0000; }
+  61.598% { --hero-my: 220.0000; }
+  62.156% { --hero-my: 276.0000; }
+  62.714% { --hero-my: 220.0000; }
+  63.272% { --hero-my: 276.0000; }
+  63.830% { --hero-my: 220.0000; }
+  64.388% { --hero-my: 276.0000; }
+  64.946% { --hero-my: 220.0000; }
+  65.468% { --hero-my: 330.0000; }
+  66.026% { --hero-my: 386.0000; }
+  66.584% { --hero-my: 330.0000; }
+  67.142% { --hero-my: 386.0000; }
+  67.700% { --hero-my: 330.0000; }
+  68.258% { --hero-my: 386.0000; }
+  68.816% { --hero-my: 330.0000; }
+  69.374% { --hero-my: 386.0000; }
+  69.932% { --hero-my: 330.0000; }
+  70.490% { --hero-my: 386.0000; }
+  71.048% { --hero-my: 330.0000; }
+  71.606% { --hero-my: 386.0000; }
+  72.164% { --hero-my: 330.0000; }
+  72.686% { --hero-my: 440.0000; }
+  73.244% { --hero-my: 496.0000; }
+  73.802% { --hero-my: 440.0000; }
+  74.360% { --hero-my: 496.0000; }
+  74.918% { --hero-my: 440.0000; }
+  75.476% { --hero-my: 496.0000; }
+  76.034% { --hero-my: 440.0000; }
+  76.592% { --hero-my: 496.0000; }
+  77.150% { --hero-my: 440.0000; }
+  77.708% { --hero-my: 496.0000; }
+  78.266% { --hero-my: 440.0000; }
+  78.824% { --hero-my: 496.0000; }
+  79.382% { --hero-my: 440.0000; }
+  79.904% { --hero-my: 550.0000; }
+  80.462% { --hero-my: 606.0000; }
+  81.020% { --hero-my: 550.0000; }
+  81.578% { --hero-my: 606.0000; }
+  82.136% { --hero-my: 550.0000; }
+  82.694% { --hero-my: 606.0000; }
+  83.252% { --hero-my: 550.0000; }
+  83.810% { --hero-my: 606.0000; }
+  84.368% { --hero-my: 550.0000; }
+  84.926% { --hero-my: 606.0000; }
+  85.484% { --hero-my: 550.0000; }
+  86.042% { --hero-my: 606.0000; }
+  86.600% { --hero-my: 550.0000; }
+  87.122% { --hero-my: 660.0000; }
+  87.680% { --hero-my: 716.0000; }
+  88.238% { --hero-my: 660.0000; }
+  88.796% { --hero-my: 716.0000; }
+  89.354% { --hero-my: 660.0000; }
+  89.912% { --hero-my: 716.0000; }
+  90.470% { --hero-my: 660.0000; }
+  91.028% { --hero-my: 716.0000; }
+  91.586% { --hero-my: 660.0000; }
+  92.144% { --hero-my: 716.0000; }
+  92.702% { --hero-my: 660.0000; }
+  93.260% { --hero-my: 716.0000; }
+  93.818% { animation-timing-function: ease-in-out; --hero-my: 660.0000; }
+  98.454% { --hero-my: 864; }
+  100% { --hero-my: 864; }
+}
+
+
+@property --hero-mx { syntax: '<number>'; initial-value: 220; inherits: false; }
+@property --hero-my { syntax: '<number>'; initial-value: 864; inherits: false; }
+@property --dy { syntax: '<number>'; initial-value: 0; inherits: false; }
+
+@property --hero-mx { syntax: '<number>'; initial-value: 220; inherits: false; }
+@property --hero-my { syntax: '<number>'; initial-value: 864; inherits: false; }
+@property --dy { syntax: '<number>'; initial-value: 0; inherits: false; }
+
+/* Resting state is the END of the timeline, so the hero still matches the
+   design if the animation never runs (reduced motion, or an older browser). */
+.fig-leaf-1 { --dy: 418; }
+.fig-leaf-2 { --dy: 424; }
+.fig-leaf-3 { --dy: 350; }
+.fig-leaf-4 { --dy: 356; }
+
+@keyframes fig-drop-1 { 0%,13.402% { --dy: 0; } 18.041%,100% { --dy: 418; } }
+@keyframes fig-drop-2 { 0%,19.072% { --dy: 0; } 23.711%,100% { --dy: 424; } }
+@keyframes fig-drop-3 { 0%,2.062%  { --dy: 0; } 6.701%,100%  { --dy: 350; } }
+@keyframes fig-drop-4 { 0%,7.732%  { --dy: 0; } 12.371%,100% { --dy: 356; } }
+@keyframes fig-art-in  { 0%,24.227% { opacity: 0; } 29.897%,100% { opacity: 1; } }
+@keyframes fig-card-in { 0%,30.412% { opacity: 0; } 35.052%,100% { opacity: 1; } }
+@keyframes fig-sub-in  { 0%,32.474% { opacity: 0; } 37.113%,100% { opacity: 1; } }
+@keyframes fig-wash-in { 0%,43.711% { opacity: 0; } 43.814%,100% { opacity: 1; } }
+@keyframes fig-trim {
+  0%,43.814% { stroke-dasharray: 0 1; visibility: hidden; }
+  43.815% { visibility: visible; }
+  93.814%,100% { stroke-dasharray: 1 1; visibility: visible; }
+}
+@keyframes fig-crayon-in {
+  0%,40.206% { opacity: 0; }
+  42.268%,93.814% { opacity: 1; }
+  98.454%,100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fig-hero-anim .fig-leaf-1 { animation: fig-drop-1 9.7s linear infinite; }
+  .fig-hero-anim .fig-leaf-2 { animation: fig-drop-2 9.7s linear infinite; }
+  .fig-hero-anim .fig-leaf-3 { animation: fig-drop-3 9.7s linear infinite; }
+  .fig-hero-anim .fig-leaf-4 { animation: fig-drop-4 9.7s linear infinite; }
+  .fig-hero-anim .fig-art { animation: fig-art-in 9.7s linear infinite; }
+  .fig-hero-anim .fig-hero-card,
+  .fig-hero-anim .fig-hero-copy h1 { animation: fig-card-in 9.7s linear infinite; }
+  .fig-hero-anim .fig-hero-copy p { animation: fig-sub-in 9.7s linear infinite; }
+  .fig-hero-anim .fig-hero-scribble { animation: fig-wash-in 9.7s linear infinite; }
+  .fig-hero-anim .fig-hero-scribble-path { animation: fig-trim 9.7s linear infinite; }
+  .fig-hero-anim .fig-hero-crayon {
+    animation: hero-crayon-x 9.7s linear infinite, hero-crayon-y 9.7s linear infinite, fig-crayon-in 9.7s linear infinite;
+  }
+}

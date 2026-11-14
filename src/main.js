@@ -7,6 +7,7 @@ import { setupImpactCounters } from './impact-counters.js'
 import { setupBlinkitPage } from './blinkit-page.js'
 import { setupHomeDetails } from './home-details.js'
 import { setupMotion } from './motion.js'
+import { setupPortraitParallax } from './portrait-parallax.js'
 import './site.css'
 
 // Published portfolio layouts are local, editable HTML/CSS. No hosted Framer
@@ -206,6 +207,7 @@ async function start() {
   setupImpactCounters()
   if (path !== '/blinkit-onboarding') setupMotion()
 
+  setupPortraitParallax()
   setupLiquidButtons()
   setupGlowCursor()
 }
