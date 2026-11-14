@@ -1,4 +1,6 @@
 import './home-interactions.css'
+import './hero.css'
+import { renderFigmaHero } from './hero.js'
 import { availability, gmailContactHref } from './portfolio-contact.js'
 
 export function setupHomeInteractions() {
@@ -115,67 +117,18 @@ export function setupHomeInteractions() {
     </nav>`
   document.querySelector('#app').prepend(header)
 
-  // Reuse the illustration layers from the original desktop portrait at every breakpoint.
-  const originalPortrait = document.querySelector('[data-framer-name="Image Box Area"].framer-7yyc0g')
-  const portraitStickers = [
-    ['creative', 'Creative', '.framer-drn9mx-container svg'],
-    ['edgy', 'Edgy', '.framer-1h224it-container svg'],
-    ['timeless', 'Timeless', '.framer-tqofvi-container svg'],
-    ['pink', '', '[data-framer-name="Big Pink"] svg'],
-    ['yellow', '', '[data-framer-name="Big Yellow"] svg'],
-    ['blue', '', '[data-framer-name="Big Blue"] svg'],
-  ]
-  sections('Hero Section').forEach((section, index) => {
-    const original = section.querySelector('img')
-    if (!original) return
-    const source = original.getAttribute('src')
-    section.classList.add('compact-hero')
-    section.innerHTML = `
-      <div class="portfolio-intro">
-        <p class="portfolio-current"><span aria-hidden="true">✦</span> Sanyukta Bhave · Product Designer</p>
-        <h1>Making complex<br> workflows <span>simpler.</span></h1>
-        <p class="portfolio-value">I design mobility experiences. Currently at <strong>Blinkit</strong>, previously at Uber, and studying XR design at IIT Jodhpur.</p>
-        <p class="portfolio-availability">${availability}</p>
-      </div>
-      <figure class="portfolio-portrait">
-        <img src="${source}" alt="Sanyukta Bhave smiling" width="682" height="1024">
-      </figure>`
-    const portrait = section.querySelector('.portfolio-portrait')
-    for (const [name, label, selector] of portraitStickers) {
-      const artwork = originalPortrait?.querySelector(selector)?.cloneNode(true)
-      if (!artwork) continue
-      const sticker = document.createElement('span')
-      sticker.className = `portrait-decal portrait-decal-${name}`
-      sticker.setAttribute('aria-hidden', 'true')
-      if (!artwork.hasAttribute('viewBox')) artwork.setAttribute('viewBox', '0 0 50 50')
-      sticker.append(artwork)
-      if (label) {
-        const caption = document.createElement('span')
-        caption.textContent = label
-        sticker.append(caption)
-      }
-      portrait.append(sticker)
-    }
-    const control = document.createElement('button')
-    control.type = 'button'
-    control.className = 'portrait-reveal'
-    control.setAttribute('aria-label', 'Show LEGO-style portrait')
-    control.setAttribute('aria-pressed', 'false')
-    control.setAttribute('aria-controls', `lego-portrait-${index}`)
-    const lego = document.createElement('img')
-    lego.id = `lego-portrait-${index}`
-    lego.className = 'portrait-lego'
-    lego.alt = ''
-    lego.width = 682
-    lego.height = 1024
-    lego.addEventListener('load', () => portrait.classList.add('has-lego'))
-    lego.src = '/home-assets/portrait-lego.jpg'
-    control.addEventListener('click', () => {
-      const shown = portrait.classList.toggle('show-lego')
-      control.setAttribute('aria-pressed', String(shown))
-    })
-    portrait.append(lego, control)
-  })
+  // The hero is the illustrated Figma design. The per-breakpoint Hero Sections
+  // are replaced by one responsive scene placed at the top of the page, where
+  // the absolutely positioned header overlays it as the design shows.
+  const heroSections = sections('Hero Section')
+  if (heroSections.length) {
+    const hero = renderFigmaHero(document.createElement('section'))
+    hero.setAttribute('aria-label', 'Introduction')
+    heroSections.forEach(section => section.remove())
+    document.querySelector('#app').prepend(hero)
+    if (!reduced.matches) requestAnimationFrame(() => hero.classList.add('fig-hero-anim'))
+  }
+
   const experienceEntries = [
     ['April 2026 – Present', 'Product Designer 1 · Blinkit', 'I design the delivery partner app, including onboarding, the new rider experience, and the referral program.'],
     ['2025 – 2027', 'Master’s in XR design · IIT Jodhpur', 'I’m studying interaction design for extended reality.'],
