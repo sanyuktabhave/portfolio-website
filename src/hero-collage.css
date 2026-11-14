@@ -1,0 +1,39 @@
+.has-collage-hero .portfolio-header{width:calc(100% - 76px);max-width:none;top:25px;height:60px;min-height:60px;border-color:#3b001b45;font-size:16px;padding:0 20px 0 26px}
+.has-collage-hero .portfolio-header nav{gap:28px}
+.interactive-home .compact-hero.collage-hero{position:relative!important;display:block!important;width:100%!important;max-width:none!important;height:auto!important;min-height:0!important;padding:0!important;margin:0!important;overflow:hidden!important;aspect-ratio:1200/688;background:#f7fbfe!important;isolation:isolate}
+.has-collage-hero main:has(>section.collage-hero){padding:0!important}
+.hc-scene{position:absolute;inset:0;overflow:hidden;container-type:inline-size}
+.hc-scene *{box-sizing:border-box}
+.hc-scene img{display:block;max-width:none;pointer-events:none}
+.hc-texture{position:absolute;inset:0;background:url('/hero-collage/crayon.webp') center/cover;opacity:.32}
+.hc-girl{position:absolute;left:26%;top:54%;width:48%;height:37%;z-index:1}
+.hc-girl video{display:block;width:100%;height:100%;object-fit:contain}
+.hc-note{position:absolute;z-index:3;left:50%;top:19%;translate:-50% 0;width:58%;max-width:850px;padding:32px 34px 35px;background:#fffef9;border:1px solid #e5e1d755;border-radius:3px 4px 13px 4px;box-shadow:0 7px 20px #4a4b4910;rotate:-.4deg}
+.hc-note::before{content:'';position:absolute;top:-10px;left:calc(50% - 33px);width:66px;height:19px;background:#a8b68495;rotate:-8deg;box-shadow:inset 0 0 0 1px #ffffff25}
+.hc-note::after{content:'';position:absolute;right:0;bottom:0;width:18px;height:18px;background:linear-gradient(135deg,transparent 49%,#e8e5d9 51%);border-radius:0 0 12px 0}
+.hc-intro{text-align:center;color:#171217;rotate:.4deg}
+.hc-intro h1{display:flex;align-items:baseline;justify-content:center;gap:.18em;font:500 4.1cqw/1.4 'Name en',Outfit,sans-serif;letter-spacing:-.025em;white-space:nowrap;margin:0 0 22px}
+.hc-intro .hc-name-slot{display:inline-flex;align-items:baseline;justify-content:center;flex:0 0 auto;width:auto;height:1.4em;padding:0;background:none}
+.hc-name-text{display:inline-block;line-height:1.4;white-space:nowrap;font-weight:500;font-synthesis:none;padding-inline:.04em;background:linear-gradient(transparent 31%,#ffed668f 36%,#ffed668f 80%,transparent 83%)}
+.hc-intro p{font:300 1.3cqw/1.65 Outfit,sans-serif;margin:0 auto;max-width:570px;color:#302c30}
+.hc-intro strong{font-weight:500}
+.hc-leaf{position:absolute;z-index:4;pointer-events:none}
+.hc-crop{position:absolute;inset:0;overflow:hidden}
+.hc-crop img{position:absolute;width:257.3%;height:204.98%;left:-21.31%;top:-44.24%}
+@media(max-width:809px){
+.has-collage-hero .portfolio-header{width:calc(100% - 32px);top:16px;height:56px;min-height:56px;padding:0 12px;gap:8px}
+.has-collage-hero .portfolio-header nav{gap:12px}
+.has-collage-hero .portfolio-header nav>a{font-size:12px}
+.has-collage-hero .portfolio-header .portfolio-brand{font-size:16px}
+.has-collage-hero .portfolio-header .unified-cta.unified-cta{font-size:12px!important;padding:9px 12px!important;min-height:34px!important}
+.has-collage-hero .portfolio-header .portfolio-linkedin{width:22px}
+.interactive-home .compact-hero.collage-hero{aspect-ratio:auto;height:600px!important}
+.hc-scene{width:100%;top:75px;height:525px;bottom:auto}
+.hc-note{top:9%;width:90%;padding:25px 18px 27px}
+.hc-intro h1{font-size:26px;gap:.16em;margin-bottom:17px;letter-spacing:-.03em}
+.hc-intro p{font-size:15px;line-height:1.6}
+.hc-girl{left:5%;top:53%;width:90%;height:31%}
+.hc-leaf{top:80%!important;width:43%!important;height:37%!important}
+.hc-leaf:nth-last-child(2){left:-14%!important}
+.hc-leaf:last-child{left:72%!important}
+}

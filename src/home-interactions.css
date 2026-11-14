@@ -204,3 +204,21 @@
   -webkit-text-fill-color: #fff;
   text-underline-offset: .2em;
 }
+/* Quiet structure; colour and movement stay within the artwork and user actions. */
+.interactive-home{background:#fefae7;color:#3b001b}
+.interactive-home #app,.interactive-home #app>div{background:#fefae7!important}
+.interactive-home section[data-framer-name="Section - Testimonial"],
+.interactive-home section[data-framer-name="My Experience Section"],
+.interactive-home section[data-framer-name="About Me Section"],
+.interactive-home section[data-framer-name="Section - Process"]{background:#fefae7!important;padding-top:90px!important;padding-bottom:90px!important}
+.interactive-home .micro-sticker,.interactive-home .timeline-margin-stars span{animation:none!important}
+.interactive-home .playful-heading.heading-arrived>span{animation:none}
+.interactive-home .blush-slides{box-shadow:none;border-color:#3b001b18}
+@media(max-width:809px){.interactive-home section[data-framer-name="Section - Testimonial"],.interactive-home section[data-framer-name="My Experience Section"],.interactive-home section[data-framer-name="About Me Section"],.interactive-home section[data-framer-name="Section - Process"]{padding-top:56px!important;padding-bottom:56px!important}}
+.settling-title-piece{display:inline-block;transform-origin:50% 90%}
+.interactive-home .playful-heading:hover>span{animation:none!important}
+.blush-achievement-caption{padding:24px 12px 8px;max-width:760px;margin:0 auto;text-align:center;color:#3b001b;font-family:Outfit,sans-serif}
+.blush-achievement-label{display:inline-block;padding:6px 12px;background:#fff0ad;border-radius:20px;font:500 14px/1.2 Outfit,sans-serif}
+.blush-achievement-caption h3{margin:14px 0 9px;font:500 26px/1.25 Outfit,sans-serif;letter-spacing:-.02em}
+.blush-achievement-caption p{margin:0;font:400 18px/1.55 Outfit,sans-serif}
+@media(max-width:809px){.blush-achievement-caption{padding:20px 8px 10px}.blush-achievement-caption h3{font-size:22px}.blush-achievement-caption p{font-size:16px}}

@@ -1,6 +1,5 @@
 import { contactEmail, contactHref } from './portfolio-contact.js'
 import { setupVideoFallbacks } from './video-fallbacks.js'
-import { setupGlowCursor } from './glow-cursor.js'
 import { setupLiquidButtons } from './liquid-buttons.js'
 import { setupHomeInteractions } from './home-interactions.js'
 import { setupImpactCounters } from './impact-counters.js'
@@ -25,6 +24,17 @@ const pages = {
 // build target does not support (it would drop Safari 14).
 async function start() {
   const path = location.pathname.replace(/\/$/, '') || '/'
+  if (import.meta.env.DEV && path === '/blinkit-nux') {
+    const [{ default: html }, { default: css }] = await Promise.all([
+      import('./nux.html?raw'), import('./nux.css?raw'),
+    ])
+    const style = document.createElement('style')
+    style.textContent = css
+    document.head.append(style)
+    document.title = 'The First 50 Deliveries — Sanyukta Bhave'
+    document.getElementById('app').innerHTML = html
+    return
+  }
   const loadPage = pages[path]
   if (!loadPage) {
     document.getElementById('app').innerHTML = '<main class="not-found"><h1>Page not found</h1><a href="/">Back to portfolio</a></main>'
@@ -63,7 +73,7 @@ async function start() {
     }
     const visible = el => el.getClientRects().length > 0
     const homeTargets = {
-      '#portfolio': '.project-grid-with-blinkit > .blinkit-project',
+      '#portfolio': '.work-archive, .project-grid-with-blinkit > .blinkit-project',
       '#reviews': 'section[data-framer-name="Section - Testimonial"]',
     }
     function scrollToHomeTarget(hash, focus = false) {
@@ -207,7 +217,6 @@ async function start() {
   if (path !== '/blinkit-onboarding') setupMotion()
 
   setupLiquidButtons()
-  setupGlowCursor()
 }
 
 start()

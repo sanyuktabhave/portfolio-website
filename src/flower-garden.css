@@ -1,0 +1,41 @@
+.interactive-home section[data-framer-name="About Me Section"]{position:relative!important;isolation:isolate}
+.about-flower-trail{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+section[data-framer-name="About Me Section"]>.about-flower-trail~*{position:relative;z-index:1}
+.flower-garden{width:100%;max-width:1100px;margin:40px auto 0;padding:36px 0 0;border-top:1px solid #52233b20;font:400 16px/1.6 Outfit,sans-serif;color:#52233b;box-sizing:border-box;text-align:left}
+.flower-garden *{box-sizing:border-box}
+.fg-heading{display:flex;justify-content:space-between;align-items:center;gap:30px;margin-bottom:30px}
+.fg-eyebrow{font:500 12px/1.4 Outfit,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8b6575;margin:0 0 9px}
+.fg-heading h3{font:500 clamp(27px,3vw,36px)/1.2 Outfit,sans-serif;letter-spacing:-.035em;margin:0 0 12px}
+.fg-heading>div>p:last-child{max-width:52ch;margin:0;color:#785c68}
+.flower-garden button{font:500 15px/1.3 Outfit,sans-serif;cursor:pointer;color:inherit;transition:background 150ms,translate 150ms;border:1px solid #52233b2c;background:transparent;border-radius:24px;padding:10px 16px;white-space:nowrap}
+.flower-garden button:hover{background:#f4e5ea;translate:0 -1px;filter:none}
+.flower-garden button:focus-visible{outline:2px solid #946477;outline-offset:4px}
+.flower-garden button:disabled{opacity:.4;cursor:default;translate:none}
+.flower-garden .fg-action{background:#52233b;color:#fffdf6;border:1px solid #52233b;padding:13px 21px;flex-shrink:0}
+.flower-garden .fg-action:hover{background:#75445b;color:#fff}
+.flower-garden [hidden]{display:none!important}
+.fg-editor{padding:28px;margin:0 0 28px;border:1px solid #52233b21;border-radius:22px;background:#fffdf5}
+.fg-editor-heading{display:flex;gap:15px;justify-content:space-between;align-items:center}
+.fg-editor-heading h4{font:500 23px/1.3 Outfit,sans-serif;letter-spacing:-.025em;margin:0}
+.fg-editor>p{margin:12px 0 22px;color:#876b77;font-size:15px}
+.fg-draw-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(200px,1fr);gap:28px;align-items:center}
+.fg-paper{position:relative;aspect-ratio:320/220;overflow:hidden;border:1px solid #52233b1c;border-radius:14px;background:#fff;box-shadow:0 4px 14px #52233b06}
+.fg-canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair;user-select:none;-webkit-user-select:none}
+.fg-paper-hint{position:absolute;inset:0;display:grid;place-items:center;padding:20px;font:400 21px/1.5 Dekko,Outfit,sans-serif;color:#ab929e;pointer-events:none;text-align:center}
+.fg-tools{display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+.fg-colours{display:flex;gap:12px;flex-wrap:wrap}
+.flower-garden .fg-swatch{width:32px;height:32px;padding:0;border:3px solid #fff;background:var(--swatch);border-radius:50%;box-shadow:0 0 0 1px #52233b20}
+.flower-garden .fg-swatch[aria-pressed=true]{box-shadow:0 0 0 2px #52233b;scale:1.08}
+.flower-garden .fg-swatch:hover{background:var(--swatch)}
+.fg-edit-actions{display:flex;gap:10px}
+.fg-public-note{font-size:13px;line-height:1.6;max-width:30ch;margin:0;color:#8a7180}
+.fg-status{font-size:14px;color:#876b77;margin:18px 0;min-height:1.5em}
+.fg-board{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:14px}
+.fg-flower{margin:0;padding:10px;background:#fffdf5;border:1px solid #52233b12;border-radius:12px;rotate:var(--tilt);transition:rotate 180ms,translate 180ms}
+.fg-flower:hover{rotate:0deg;translate:0 -3px}
+.fg-flower svg{display:block;width:100%;height:auto;aspect-ratio:320/220}
+.fg-flower figcaption{text-align:center;font-size:11px;color:#a28b96;margin:5px 0 0}
+.fg-empty{display:grid;place-items:center;min-height:150px;margin:0;border:1px dashed #52233b30;border-radius:18px;font:400 24px/1.5 Dekko,Outfit,sans-serif;color:#987787}
+@media(max-width:809px){.flower-garden{margin-top:24px;padding-top:28px}.fg-heading{flex-direction:column;align-items:flex-start;gap:20px}.fg-heading>div>p:last-child{font-size:15px}.fg-editor{padding:18px}.fg-editor-heading h4{font-size:20px}.fg-editor-heading{align-items:flex-start}.flower-garden .fg-close{font-size:12px;padding:8px 10px}.fg-draw-layout{grid-template-columns:1fr;gap:20px}.fg-tools{gap:16px}.fg-board{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.fg-flower{padding:6px}.fg-public-note{max-width:none}.fg-empty{min-height:120px;font-size:21px}}
+@media(prefers-reduced-motion:reduce){.about-flower-trail{display:none}.flower-garden button,.fg-flower{transition:none}.fg-flower:hover{translate:none;rotate:var(--tilt)}}
+.flower-garden{scroll-margin-top:36px}
