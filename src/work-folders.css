@@ -60,14 +60,12 @@
 .wf-panel li+li{border-top:1px solid #34001920}
 .wf-panel a{display:flex;justify-content:space-between;align-items:center;gap:20px;min-height:58px;padding:14px 4px;color:inherit;text-decoration:none;font:400 18px/1.4 Outfit,sans-serif}
 .wf-panel a:hover{text-decoration:underline;text-underline-offset:4px}
-.wf-folder:is(:hover,:focus-within,.wf-active) .wf-cards>*{translate:0 -22px}
-.wf-folder:active .wf-cards>*{translate:0 -14px}
 .interactive-home section.has-work-archive{padding:26px 40px 90px!important;gap:28px!important;background:#fefae7!important}.has-work-archive .work-archive{background:transparent}
 .has-work-archive>.company-strip{padding:4px 0 16px!important}
 @media(max-width:809px){.wf-content{padding:24px 0 48px}.wf-content>h2{font-size:29px}.interactive-home section.has-work-archive{padding:12px 24px 48px!important;gap:20px!important}.wf-heading-underline{width:2.6em;font-size:29px;height:14px}.wf-folders{grid-template-columns:1fr;gap:48px;margin:46px auto 0;max-width:303px}.wf-card>span{font-size:13.5px}.wf-bottom-doodle{display:none}.wf-panel{padding:20px;margin-top:32px}.wf-panel a{font-size:16px}.wf-panel h3{font-size:23px}}
 @media(prefers-reduced-motion:reduce){.wf-cards{transition:none}}
 
-.wf-frost{position:absolute;inset:0;z-index:2;clip-path:inset(25% 0 0 0);pointer-events:none}.wf-frost>.wf-cards{filter:blur(3px)}
+.wf-frost{position:absolute;inset:25% 0 0;z-index:2;pointer-events:none;mask:url("/work-folders/glass-mask.svg") 0 0/100% 100% no-repeat;-webkit-mask:url("/work-folders/glass-mask.svg") 0 0/100% 100% no-repeat}.wf-frost>.wf-cards{inset:auto;left:0;top:-33.333333%;width:100%;height:133.333333%}.wf-frost>.wf-cards{filter:blur(6px) saturate(.85)}
 
 .wf-fleet .wf-glow,.wf-driver .wf-glow{width:260.676px;height:260.676px}
 
@@ -78,15 +76,10 @@
 
 .wf-card,.wf-mini{padding:0;margin:0;appearance:none;font:inherit;cursor:pointer;transition:translate 160ms ease-out,scale 160ms ease-out,box-shadow 160ms ease-out}
 .wf-mini{border:0;background:transparent}
-.wf-stage>.wf-cards>.wf-card:is(:hover,:focus-visible),.wf-stage>.wf-cards>.wf-mini:is(:hover,:focus-visible){translate:0 -50px;scale:1.06;z-index:7;box-shadow:0 12px 20px #34001924;outline:none}
-.wf-open:focus-visible{outline:3px solid #340019;outline-offset:6px}
-@media(prefers-reduced-motion:reduce){.wf-card,.wf-mini{transition:none}.wf-stage>.wf-cards>.wf-card:is(:hover,:focus-visible),.wf-stage>.wf-cards>.wf-mini:is(:hover,:focus-visible){scale:1}}
 
-/* The selected card clears the folder glass; its frosted duplicate disappears. */
-.wf-stage:has(>.wf-cards>a:nth-child(1):is(:hover,:focus-visible))>.wf-frost>.wf-cards>:nth-child(1){visibility:hidden}
-.wf-stage:has(>.wf-cards>a:nth-child(2):is(:hover,:focus-visible))>.wf-frost>.wf-cards>:nth-child(2){visibility:hidden}
-.wf-stage:has(>.wf-cards>a:nth-child(3):is(:hover,:focus-visible))>.wf-frost>.wf-cards>:nth-child(3){visibility:hidden}
-.wf-stage:has(>.wf-cards>a:nth-child(4):is(:hover,:focus-visible))>.wf-frost>.wf-cards>:nth-child(4){visibility:hidden}
+.wf-open:focus-visible{outline:3px solid #340019;outline-offset:6px}
+@media(prefers-reduced-motion:reduce){.wf-card,.wf-mini{transition:none}}
+
 .wf-content>h2{color:#3b001b;font:400 clamp(80px,11.85vw,160px)/.9 Oswald,sans-serif;letter-spacing:-.06em;text-align:center;margin:24px 0 0}
 .wf-folders{margin-top:88px}
 .wf-panel li{padding:12px 0 22px}
@@ -101,3 +94,49 @@
 @media(hover:none){.wf-hover-summary{opacity:1;translate:none}}
 @media(prefers-reduced-motion:reduce){.wf-hover-summary{transition:none}}
 @media(max-width:809px){.wf-hover-summary{opacity:1;translate:none;font-size:15px}}
+
+/* A hinged glass face and spring-like card fan, following the folder reference. */
+.wf-stage{perspective:1000px}
+.wf-cover{position:absolute;inset:0;z-index:3;pointer-events:none;transform-origin:50% 100%;transition:transform 560ms cubic-bezier(.22,1,.36,1)}
+.wf-cover .wf-open{filter:drop-shadow(0 3px 4px #34001912);transition:filter 560ms ease}
+.wf-stage>.wf-cards>*{translate:0 28px;scale:.91;transition:translate 560ms cubic-bezier(.22,1,.36,1),rotate 560ms cubic-bezier(.22,1,.36,1),scale 560ms cubic-bezier(.22,1,.36,1),box-shadow 300ms ease}
+.wf-cover .wf-cards>*{translate:0 28px;scale:.91;transition:translate 560ms cubic-bezier(.22,1,.36,1),scale 560ms cubic-bezier(.22,1,.36,1)}
+.wf-folder:is(:hover,:focus-within) .wf-cover{transform:rotateX(-22deg)}
+.wf-folder:is(:hover,:focus-within) .wf-cover .wf-open{filter:drop-shadow(0 14px 10px #34001928)}
+.wf-folder:is(:hover,:focus-within) .wf-cards>*{translate:0 -38px;scale:1}
+.wf-folder:is(:hover,:focus-within) .wf-cards>:nth-child(2){transition-delay:35ms}
+.wf-folder:is(:hover,:focus-within) .wf-cards>:nth-child(3){transition-delay:60ms}
+.wf-folder:is(:hover,:focus-within) .wf-cards>:nth-child(4){transition-delay:85ms}
+.wf-folder:is(:hover,:focus-within) .wf-mini-three{translate:-12px -26px}
+.wf-folder:is(:hover,:focus-within) .wf-mini-four{translate:16px -20px}
+.wf-stage>.wf-cards>a:is(:hover,:focus-visible){translate:0 -68px;scale:1.06;z-index:7;transition-delay:0ms;box-shadow:0 12px 20px #34001924;outline:2px solid transparent}
+.wf-stage>.wf-cards>.wf-mini-three:is(:hover,:focus-visible){translate:-12px -62px}
+.wf-stage>.wf-cards>.wf-mini-four:is(:hover,:focus-visible){translate:16px -56px}
+.wf-stage:has(>.wf-cards>a:nth-child(1):is(:hover,:focus-visible)) .wf-frost .wf-cards>:nth-child(1),
+.wf-stage:has(>.wf-cards>a:nth-child(2):is(:hover,:focus-visible)) .wf-frost .wf-cards>:nth-child(2),
+.wf-stage:has(>.wf-cards>a:nth-child(3):is(:hover,:focus-visible)) .wf-frost .wf-cards>:nth-child(3),
+.wf-stage:has(>.wf-cards>a:nth-child(4):is(:hover,:focus-visible)) .wf-frost .wf-cards>:nth-child(4){visibility:hidden}
+@media(hover:none){
+ .wf-stage>.wf-cards>*,.wf-cover .wf-cards>*{translate:0 -20px;scale:1}
+ .wf-stage>.wf-cards>.wf-mini-three{translate:-12px -24px}
+ .wf-stage>.wf-cards>.wf-mini-four{translate:16px -20px}
+}
+@media(prefers-reduced-motion:reduce){
+ .wf-cover,.wf-cover .wf-open,.wf-stage .wf-cards>*{transition:none!important}
+ .wf-folder:is(:hover,:focus-within) .wf-cover{transform:none}
+}
+.wf-onboarding{--folder-rest-angle:-3deg;--folder-open-angle:-10deg}
+.wf-first-fifty{--folder-rest-angle:4deg;--folder-open-angle:10deg}
+.wf-fleet{--folder-rest-angle:-4deg;--folder-open-angle:-12deg}
+.wf-driver{--folder-rest-angle:5deg;--folder-open-angle:12deg}
+.wf-mini-one{--folder-rest-angle:-3deg;--folder-open-angle:-10deg}
+.wf-mini-two{--folder-rest-angle:2deg;--folder-open-angle:7deg}
+.wf-mini-three{--folder-rest-angle:-9deg;--folder-open-angle:-20deg}
+.wf-mini-four{--folder-rest-angle:2deg;--folder-open-angle:8deg}
+.wf-cards>*{rotate:var(--folder-rest-angle)}
+.wf-folder:is(:hover,:focus-within) .wf-cards>*{rotate:var(--folder-open-angle)}
+.wf-cover .wf-cards>*{transition-property:translate,scale,rotate}
+@media(hover:none){.wf-cards>*{rotate:var(--folder-open-angle)}}
+
+.wf-stage>.wf-cards>a:focus-visible{outline:3px solid #3b001b;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){.wf-stage>.wf-cards>a:is(:hover,:focus-visible){scale:1}}

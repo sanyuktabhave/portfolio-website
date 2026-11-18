@@ -222,3 +222,20 @@
 .blush-achievement-caption h3{margin:14px 0 9px;font:500 26px/1.25 Outfit,sans-serif;letter-spacing:-.02em}
 .blush-achievement-caption p{margin:0;font:400 18px/1.55 Outfit,sans-serif}
 @media(max-width:809px){.blush-achievement-caption{padding:20px 8px 10px}.blush-achievement-caption h3{font-size:22px}.blush-achievement-caption p{font-size:16px}}
+
+/* Reserve image space before decoding, even when a carousel slide was hidden. */
+.blush-slide > a{display:block;width:100%;min-width:0}
+.blush-slide img{background:#faf8f0}
+/* Let the desktop footer follow the viewport instead of the exported 1200px artboard. */
+@media(min-width:810px){
+ .interactive-home footer:has(#contactsz){width:100%!important;max-width:none!important;min-width:0!important}
+ .interactive-home footer:has(>#contactsz){padding:40px 38px!important;box-sizing:border-box}
+ .interactive-home #contactsz{width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box}
+}
+@media(min-width:810px){
+ .interactive-home footer:has(#contactsz){position:relative!important;inset:auto!important;height:auto!important}
+ .interactive-home #contactsz{position:relative!important;inset:auto!important;height:auto!important}
+ .interactive-home #contactsz>.framer-9mx8k8{width:100%!important;height:auto!important}
+ .interactive-home #contactsz .framer-11jpib1{width:100%!important}
+ .interactive-home #contactsz .framer-1ls036o{width:100%!important;height:auto!important;aspect-ratio:1056/343.1875}
+}

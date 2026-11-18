@@ -1,4 +1,6 @@
-import { setupFlowerGarden } from './flower-garden.js'
+import { setupFlowerTrail } from './flower-trail.js'
+import './flower-garden.css'
+import { setupCrayonSectionHeadings } from './crayon-section-headings.js'
 import { setupSectionHeadingMotion } from './section-heading-motion.js'
 import { setupHeroCollage } from './hero-collage.js'
 import { setupWorkArchive } from './work-folders.js'
@@ -240,16 +242,21 @@ export function setupHomeInteractions() {
     });common.replaceWith(stack)
   })
   sections('Section - Testimonial').forEach(s=>{
-    const sources=['/home-assets/salesforce-design-days-finalist.png','/home-assets/iiit-delhi-designathon.png','/reference-assets/503ec92c687b8018.png','/reference-assets/809a5cb3ab8cfbc3.png','/reference-assets/4f83d1d3a9d7a919.png'];if(!s.querySelector('img'))return
+    const sources=['/home-assets/salesforce-design-days-finalist.png','/home-assets/iiit-delhi-designathon.png','/reference-assets/503ec92c687b8018.png','/reference-assets/809a5cb3ab8cfbc3.png','/reference-assets/4f83d1d3a9d7a919.png'];const sizes=[[1179,639],[1600,1442],[1600,785],[1600,392],[1600,521]];if(!s.querySelector('img'))return
     const heading=[...s.children].find(c=>c.querySelector('h2')) || s.firstElementChild;
     // Keep the original section heading, replace only the static testimonial artwork.
     [...s.children].forEach(c=>{if(c!==heading)c.remove()})
     s.classList.add('testimonial-section')
     const carousel=document.createElement('div');carousel.className='blush-carousel';carousel.setAttribute('aria-roledescription','carousel');carousel.setAttribute('aria-label','Achievements and teammate appreciation')
-    carousel.innerHTML=`<div class="blush-slides">${sources.map((src,i)=>`<figure class="blush-slide" ${i?'hidden':''}><a href="${src}" target="_blank" rel="noopener noreferrer" aria-label="${i === 0 ? 'View Salesforce Design Days finalist photograph at full size' : i===1 ? 'View IIIT Delhi Designathon award photograph at full size' : `Read teammate appreciation ${i} at full size`}"><img src="${src}" alt="${i === 0 ? 'Sanyukta Bhave featured among the Relationship Design Challenge finalists at Salesforce Design Days' : i===1 ? 'Sanyukta and her team holding the third-place award at IIIT Delhi’s 1Pixel Designathon' : `Appreciation ${i} from Sanyukta’s colleagues`}" loading="lazy"></a>${i===0?'<figcaption class="blush-achievement-caption"><span class="blush-achievement-label">Top 5 · 300+ entries</span><h3>Salesforce Design Days</h3><p>I presented my character-led pop-up book celebrating Indian languages, shortlisted among the top 5 out of 300+ entries.</p></figcaption>':i===1?'<figcaption class="blush-achievement-caption"><span class="blush-achievement-label">3rd place · IIIT Delhi</span><h3>1Pixel Designathon</h3><p>Our team won third place at IIIT Delhi’s 1Pixel Designathon.</p></figcaption>':''}</figure>`).join('')}</div><div class="blush-controls"><button type="button" aria-label="Previous testimonial">←</button><span aria-live="polite">1 / ${sources.length}</span><button type="button" aria-label="Next testimonial">→</button></div>`
-    let current=0;const slides=[...carousel.querySelectorAll('figure')];const change=step=>{current=(current+step+slides.length)%slides.length;slides.forEach((f,i)=>f.hidden=i!==current);carousel.querySelector('[aria-live]').textContent=`${current+1} / ${slides.length}`;if(!reduced.matches)slides[current].animate([{opacity:.2,translate:'15px 0'},{opacity:1,translate:'0 0'}],{duration:300})}
+    carousel.innerHTML=`<div class="blush-slides">${sources.map((src,i)=>`<figure class="blush-slide" ${i?'hidden':''}><a href="${src}" target="_blank" rel="noopener noreferrer" aria-label="${i === 0 ? 'View Salesforce Design Days finalist photograph at full size' : i===1 ? 'View IIIT Delhi Designathon award photograph at full size' : `Read teammate appreciation ${i} at full size`}"><img src="${src.replace('.png','.webp')}" width="${sizes[i][0]}" height="${sizes[i][1]}" decoding="async" alt="${i === 0 ? 'Sanyukta Bhave featured among the Relationship Design Challenge finalists at Salesforce Design Days' : i===1 ? 'Sanyukta and her team holding the third-place award at IIIT Delhi’s 1Pixel Designathon' : `Appreciation ${i} from Sanyukta’s colleagues`}" loading="lazy"></a>${i===0?'<figcaption class="blush-achievement-caption"><span class="blush-achievement-label">Top 5 · 300+ entries</span><h3>Salesforce Design Days</h3><p>I presented my character-led pop-up book celebrating Indian languages, shortlisted among the top 5 out of 300+ entries.</p></figcaption>':i===1?'<figcaption class="blush-achievement-caption"><span class="blush-achievement-label">3rd place · IIIT Delhi</span><h3>1Pixel Designathon</h3><p>Our team won third place at IIIT Delhi’s 1Pixel Designathon.</p></figcaption>':''}</figure>`).join('')}</div><div class="blush-controls"><button type="button" aria-label="Previous testimonial">←</button><span aria-live="polite">1 / ${sources.length}</span><button type="button" aria-label="Next testimonial">→</button></div>`
+    let current=0;const slides=[...carousel.querySelectorAll('figure')];const change=step=>{current=(current+step+slides.length)%slides.length;slides[current].querySelector('img').loading='eager';slides.forEach((f,i)=>f.hidden=i!==current);carousel.querySelector('[aria-live]').textContent=`${current+1} / ${slides.length}`;if(!reduced.matches)slides[current].animate([{opacity:.2,translate:'15px 0'},{opacity:1,translate:'0 0'}],{duration:300})}
     const buttons=carousel.querySelectorAll('button');buttons[0].onclick=()=>change(-1);buttons[1].onclick=()=>change(1);carousel.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();change(e.key==='ArrowRight'?1:-1)}})
     let touchX=null;carousel.addEventListener('touchstart',e=>touchX=e.touches[0].clientX,{passive:true});carousel.addEventListener('touchend',e=>{if(touchX!==null&&Math.abs(e.changedTouches[0].clientX-touchX)>50)change(e.changedTouches[0].clientX<touchX?1:-1);touchX=null},{passive:true});s.append(carousel)
+    // Warm every slide near the section, including slides hidden by the carousel.
+    const warmImages=()=>{for(const image of carousel.querySelectorAll('img'))image.loading='eager'}
+    const imageObserver=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){warmImages();imageObserver.disconnect()}},{rootMargin:'1200px 0px'})
+    imageObserver.observe(carousel)
+
   })
   // Move the actual sections so reading order and keyboard order match the layout.
   const achievements = sections('Section - Testimonial')
@@ -272,8 +279,9 @@ export function setupHomeInteractions() {
 
   setupWorkArchive()
   setupHeroCollage()
-  setupFlowerGarden()
+  sections('About Me Section').forEach(setupFlowerTrail)
   setupSectionHeadingMotion()
+  setupCrayonSectionHeadings()
   // Keep only the scalloped edge immediately below the hero.
   document.querySelectorAll('.framer-eNAeu').forEach(edge => {
     if (!edge.closest('.has-work-archive')) edge.parentElement.remove()

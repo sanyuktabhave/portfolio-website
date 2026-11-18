@@ -74,6 +74,12 @@ export function createWorkArchive(assetBase = '/', idPrefix = 'work') {
     cover.setAttribute('aria-hidden','true')
     cover.append(...front.childNodes)
     front.replaceWith(cover)
+    // Move the glass, front and logo as one hinged folder face.
+    const face=document.createElement('span')
+    face.className='wf-cover'
+    face.setAttribute('aria-hidden','true')
+    face.append(folder.querySelector('.wf-frost'),cover,folder.querySelector('.wf-logo'))
+    folder.querySelector('.wf-stage').append(face)
     const summary=document.createElement('p')
     summary.className='wf-hover-summary'
     summary.id=`${idPrefix}-summary-${index}`

@@ -37,3 +37,65 @@
 .hc-leaf:nth-last-child(2){left:-14%!important}
 .hc-leaf:last-child{left:72%!important}
 }
+
+/* Crayon title: transparent artwork with separate, gently moving doodles. */
+.hc-note{top:16%;width:65%;max-width:960px;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;rotate:0deg}
+.hc-note::before,.hc-note::after{display:none}
+.hc-intro{rotate:0deg}
+.hc-intro .hc-crayon-title{position:relative;display:block;width:100%;height:auto;aspect-ratio:2.55;margin:0 auto 14px;line-height:1;white-space:normal}
+.hc-crayon-title .hc-crayon-name{position:absolute;left:9%;top:0;width:82%;height:100%;object-fit:contain}
+.hc-crayon-doodle{position:absolute;display:block;width:12%;aspect-ratio:1;pointer-events:none;animation:hc-crayon-sway 5s ease-in-out infinite;transform-origin:center}
+.hc-crayon-doodle>span{display:block;width:100%;height:100%;background-image:url('/hero-lettering/doodles.webp');background-size:300% 200%;background-position:calc(var(--col)*50%) calc(var(--row)*100%)}
+.hc-doodle-orange{left:2%;top:30%;animation:hc-crayon-spin 24s linear infinite}
+.hc-doodle-pink{right:0;top:17%;animation:hc-crayon-spin 20s linear infinite reverse}
+.hc-doodle-purple{left:16%;bottom:-5%;width:9%;animation-delay:-2s}
+.hc-doodle-spiral{left:30%;bottom:-10%;width:8%;animation-duration:6s}
+.hc-doodle-swoosh{right:23%;bottom:-14%;width:22%;aspect-ratio:1.5;animation-duration:7s}
+.hc-doodle-green{right:7%;bottom:-5%;width:10%;animation:hc-crayon-pulse 3.6s ease-in-out infinite}
+.hc-intro p{max-width:650px;padding:0 15px;font-size:1.25cqw;line-height:1.65}
+.hc-girl{top:59%;height:33%}
+@keyframes hc-crayon-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes hc-crayon-pulse{0%,100%{transform:scale(.82)}50%{transform:scale(1.18)}}
+@keyframes hc-crayon-sway{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-4px) rotate(4deg)}}
+@media(max-width:809px){
+ .hc-note{top:10%;width:94%;padding:0}
+ .hc-intro .hc-crayon-title{aspect-ratio:2.15;margin-bottom:23px}
+ .hc-crayon-title .hc-crayon-name{left:7%;width:86%}
+ .hc-intro p{font-size:14px;line-height:1.65;padding:0 23px;max-width:520px}
+ .hc-girl{top:58%;height:32%}
+}
+@media(prefers-reduced-motion:reduce){.hc-crayon-doodle{animation:none}}
+/* Keep the bio clear of the character at both responsive layouts. */
+.hc-note{top:14%}
+.hc-intro .hc-crayon-title{aspect-ratio:3.25}
+.hc-girl{top:66%;height:26%}
+@media(max-width:809px){
+ .interactive-home .compact-hero.collage-hero{height:700px!important}
+ .hc-scene{height:625px}
+ .hc-note{top:7%}
+ .hc-intro .hc-crayon-title{aspect-ratio:2.15}
+ .hc-girl{top:57%;height:30%}
+ .hc-leaf{top:83%!important}
+}
+@media(max-width:389px){
+ .interactive-home .framer-8cuioj,.interactive-home .framer-s3fn5{width:100%!important;min-width:0!important}
+ .has-collage-hero .portfolio-header{width:calc(100% - 20px);padding:0 9px}
+ .has-collage-hero .portfolio-header nav{gap:8px}
+ .has-collage-hero .portfolio-header nav>a{font-size:10px}
+ .has-collage-hero .portfolio-header .portfolio-brand{font-size:14px}
+ .has-collage-hero .portfolio-header .unified-cta.unified-cta{padding:8px 10px!important;font-size:10px!important}
+ .hc-intro p{font-size:13px;padding:0 18px}
+}
+/* Swap only the supplied name artwork; the prefix and doodles stay in place. */
+.hc-crayon-prefix{position:absolute;top:0;left:34%;width:32%;height:34%;overflow:visible;pointer-events:none}
+.hc-crayon-title .hc-name-trigger{position:absolute;left:8%;top:30%;width:84%;height:68%;padding:0;border:0;border-radius:6px;background:transparent;box-shadow:none;cursor:help;appearance:none;isolation:isolate}
+.hc-name-trigger:focus-visible{outline:2px dashed #713452;outline-offset:6px}
+.hc-script-art{position:absolute;inset:0;width:100%;height:100%;opacity:0;transform:translateY(5px);transition:opacity 180ms ease,transform 300ms cubic-bezier(.22,1,.36,1);pointer-events:none}
+.hc-script-art.is-current{opacity:1;transform:translateY(0)}
+.hc-thesis-tooltip{position:absolute;z-index:10;left:50%;top:calc(100% - 10px);width:min(380px,90vw);padding:17px 20px;background:#fffaf0;color:#3b102b;border:1px solid #3b102b20;border-radius:12px;box-shadow:0 8px 28px #3b102b18;translate:-50% 0;font:400 15px/1.6 Outfit,sans-serif;letter-spacing:normal;text-align:left;opacity:0;visibility:hidden;transform:translateY(5px);transition:opacity 150ms ease,transform 150ms ease,visibility 150ms;pointer-events:none}
+.hc-thesis-tooltip.is-visible{opacity:1;visibility:visible;transform:translateY(0)}
+@media(max-width:809px){.hc-name-trigger{touch-action:manipulation}.hc-thesis-tooltip{font-size:14px;width:min(340px,86vw);padding:14px 16px}}
+@media(prefers-reduced-motion:reduce){.hc-script-art,.hc-thesis-tooltip{transition:none;transform:none}}
+
+
+.hc-crayon-prefix,.hc-script-art{overflow:hidden}
