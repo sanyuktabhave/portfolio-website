@@ -1,4 +1,5 @@
 import './hero-collage.css'
+import { setupCrayonHandwriting } from './crayon-handwriting.js'
 
 export function setupHeroCollage() {
   document.body.classList.add('has-collage-hero')
@@ -13,6 +14,7 @@ export function setupHeroCollage() {
       ${leaf(null,-80,500,340,297)}${leaf(null,940,500,340,297,true)}
     </div>
     `
+    setupCrayonHandwriting(section)
     const video=section.querySelector('video')
     const reduced=matchMedia('(prefers-reduced-motion: reduce)')
     const sync=()=>{if(reduced.matches)video.pause();else video.play().catch(()=>{})}

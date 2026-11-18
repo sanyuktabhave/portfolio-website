@@ -239,3 +239,15 @@
  .interactive-home #contactsz .framer-11jpib1{width:100%!important}
  .interactive-home #contactsz .framer-1ls036o{width:100%!important;height:auto!important;aspect-ratio:1056/343.1875}
 }
+/* Keep the two transitions compact without removing space for hover summaries. */
+.interactive-home section.has-work-archive.has-company-strip{padding-bottom:32px!important}
+.has-work-archive .wf-content{padding-bottom:24px}
+.interactive-home section[data-framer-name="Section - Testimonial"]{padding-top:48px!important}
+.interactive-home section[data-framer-name="About Me Section"]{padding-bottom:40px!important}
+.interactive-home section[data-framer-name="Section - Process"]{padding-top:48px!important}
+@media(max-width:809px){
+ .interactive-home section.has-work-archive.has-company-strip{padding-bottom:24px!important}
+ .interactive-home section[data-framer-name="Section - Testimonial"]{padding-top:40px!important}
+ .interactive-home section[data-framer-name="About Me Section"]{padding-bottom:32px!important}
+ .interactive-home section[data-framer-name="Section - Process"]{padding-top:32px!important}
+}
