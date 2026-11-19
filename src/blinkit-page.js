@@ -34,9 +34,12 @@ export function setupBlinkitPage() {
   const hoverLayout = matchMedia('(min-width: 1100px) and (hover: hover) and (pointer: fine)')
   let pinned = false
   let hovered = false
+  let activeDesign = false
+  let disclosureDismissed = false
+  let lastActiveLink
 
   function syncDisclosure() {
-    const expanded = pinned || hovered
+    const expanded = pinned || hovered || (activeDesign && !disclosureDismissed)
     toggle.setAttribute('aria-expanded', String(expanded))
     subsections.hidden = !expanded
     page.style.setProperty('--be-nav-height', `${nav.offsetHeight}px`)
@@ -66,6 +69,7 @@ export function setupBlinkitPage() {
     if (event.key !== 'Escape' || subsections.hidden) return
     event.preventDefault()
     pinned = hovered = false
+    disclosureDismissed = true
     toggle.focus({ preventScroll: true })
     syncDisclosure()
   })
@@ -100,7 +104,11 @@ export function setupBlinkitPage() {
       if (link === active?.link) link.setAttribute('aria-current', 'location')
       else link.removeAttribute('aria-current')
     })
-    toggle.classList.toggle('is-current-group', designLinks.includes(active?.link))
+    activeDesign = active?.link === toggle || designLinks.includes(active?.link)
+    if (lastActiveLink !== active?.link) disclosureDismissed = false
+    lastActiveLink = active?.link
+    toggle.classList.toggle('is-current-group', activeDesign)
+    syncDisclosure()
   }
   addEventListener('scroll', () => {
     if (scheduled) return

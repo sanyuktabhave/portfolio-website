@@ -89,3 +89,18 @@ button.be-hero-image{display:block;width:100%;padding:0;border:0;text-align:left
 .be-video-media [hidden] { display: none !important; }
 .be-video-fallback { display: block; width: 100%; height: auto; border-radius: 12px; }
 .be-hero-video .be-video-fallback { border-radius: 26px; }
+
+/* Reader-facing refinements for the case study. */
+.be-hero{container-type:inline-size}
+@media(min-width:801px){
+ .blinkit-editorial .be-hero h1{font-size:clamp(38px,6.2cqw,76px);white-space:nowrap}
+}
+.be-details summary{align-items:center;gap:20px}
+.be-disclosure-chevron{width:22px;height:22px;flex:none;transition:transform 180ms ease}
+.be-details[open] .be-disclosure-chevron{transform:rotate(180deg)}
+.be-image>.be-enlarge-icon{display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:9px;border:1px solid #34001920;background:#fffceff2}
+.be-enlarge-icon svg{display:block;width:100%;height:100%}
+.be-nav a.is-current-group{font-weight:500;border-color:var(--ink)}
+#feedback-reflection .be-section-head,#feedback-reflection .be-section-head>p{max-width:none}
+.blinkit-editorial mark{color:inherit;background:#f7eb7080;padding:.04em .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+@media(max-width:480px){.be-image>.be-enlarge-icon{width:34px;height:34px;padding:8px}}
